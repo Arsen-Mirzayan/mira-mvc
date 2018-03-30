@@ -1,7 +1,7 @@
 package com.mira.mvc.system;
 
 /**
- * Исключение, текст которого можно показывать пользователю
+ * РСЃРєР»СЋС‡РµРЅРёРµ, С‚РµРєСЃС‚ РєРѕС‚РѕСЂРѕРіРѕ РјРѕР¶РЅРѕ РїРѕРєР°Р·С‹РІР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
  */
 public class UIException extends RuntimeException {
     protected String code;

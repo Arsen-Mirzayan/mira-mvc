@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Сущность не найдена
+ * РЎСѓС‰РЅРѕСЃС‚СЊ РЅРµ РЅР°Р№РґРµРЅР°
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException {

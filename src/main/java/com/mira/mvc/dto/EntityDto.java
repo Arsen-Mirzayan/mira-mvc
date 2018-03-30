@@ -1,7 +1,7 @@
 package com.mira.mvc.dto;
 
 /**
- * Родительский DTO содержит первичный ключ и определённые через него equals и hascode
+ * Р РѕРґРёС‚РµР»СЊСЃРєРёР№ DTO СЃРѕРґРµСЂР¶РёС‚ РїРµСЂРІРёС‡РЅС‹Р№ РєР»СЋС‡ Рё РѕРїСЂРµРґРµР»С‘РЅРЅС‹Рµ С‡РµСЂРµР· РЅРµРіРѕ equals Рё hascode
  */
 public class EntityDto extends AbstractEntityDto<Long> {
   protected Long id;

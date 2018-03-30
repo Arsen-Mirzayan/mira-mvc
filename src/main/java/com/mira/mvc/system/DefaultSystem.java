@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * Родительский класс для всех систем, содержит общие методы.
+ * Р РѕРґРёС‚РµР»СЊСЃРєРёР№ РєР»Р°СЃСЃ РґР»СЏ РІСЃРµС… СЃРёСЃС‚РµРј, СЃРѕРґРµСЂР¶РёС‚ РѕР±С‰РёРµ РјРµС‚РѕРґС‹.
  */
 public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<EntityIdClass>
     , SERVICE extends AbstractService<ENTITY, EntityIdClass>
@@ -45,14 +45,14 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     public abstract Class<DTO> getDtoClass();
 
     /**
-     * @return сервис для работы с объектами текущего класса
+     * @return СЃРµСЂРІРёСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РѕР±СЉРµРєС‚Р°РјРё С‚РµРєСѓС‰РµРіРѕ РєР»Р°СЃСЃР°
      */
     protected SERVICE getDalService() {
         return dalService;
     }
 
     /**
-     * @return список всех объектов
+     * @return СЃРїРёСЃРѕРє РІСЃРµС… РѕР±СЉРµРєС‚РѕРІ
      */
     public List<DTO> findAll() {
         List<ENTITY> entities = getDalService().findAll();
@@ -60,10 +60,10 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     }
 
     /**
-     * Находит объект по идентификатору
+     * РќР°С…РѕРґРёС‚ РѕР±СЉРµРєС‚ РїРѕ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂСѓ
      *
-     * @param id идентификатор
-     * @return найденный объект или null
+     * @param id РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
+     * @return РЅР°Р№РґРµРЅРЅС‹Р№ РѕР±СЉРµРєС‚ РёР»Рё null
      */
     public DTO find(DtoIdClass id) {
         ENTITY entity = getDalService().findById(convertId(id));
@@ -76,9 +76,9 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     protected abstract EntityIdClass convertId(DtoIdClass dtoId);
 
     /**
-     * Преобразует сущность к DTO объекту
+     * РџСЂРµРѕР±СЂР°Р·СѓРµС‚ СЃСѓС‰РЅРѕСЃС‚СЊ Рє DTO РѕР±СЉРµРєС‚Сѓ
      *
-     * @param entity сущность
+     * @param entity СЃСѓС‰РЅРѕСЃС‚СЊ
      * @return DTO
      */
     protected DTO convert(ENTITY entity) {
@@ -86,20 +86,20 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     }
 
     /**
-     * Преобразует сущность к DTO объекту
+     * РџСЂРµРѕР±СЂР°Р·СѓРµС‚ СЃСѓС‰РЅРѕСЃС‚СЊ Рє DTO РѕР±СЉРµРєС‚Сѓ
      *
-     * @param entities список сущностей
-     * @return список полученных DTO
+     * @param entities СЃРїРёСЃРѕРє СЃСѓС‰РЅРѕСЃС‚РµР№
+     * @return СЃРїРёСЃРѕРє РїРѕР»СѓС‡РµРЅРЅС‹С… DTO
      */
     protected List<DTO> convert(List<ENTITY> entities) {
         return dtoConversionService.convertAll(entities, getDtoClass());
     }
 
     /**
-     * Преобразует страницу ответа с сущности к DTO
+     * РџСЂРµРѕР±СЂР°Р·СѓРµС‚ СЃС‚СЂР°РЅРёС†Сѓ РѕС‚РІРµС‚Р° СЃ СЃСѓС‰РЅРѕСЃС‚Рё Рє DTO
      *
-     * @param entities список сущностей
-     * @return список DTO
+     * @param entities СЃРїРёСЃРѕРє СЃСѓС‰РЅРѕСЃС‚РµР№
+     * @return СЃРїРёСЃРѕРє DTO
      */
     protected PageResponse<DTO> convert(PageResponse<ENTITY> entities) {
         return dtoConversionService.convertPageResponse(entities, getDtoClass());
@@ -114,15 +114,15 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     }
 
     /**
-     * Выгружает из базы данных список сущностей, соответствующих указанным DTO объектам. Выгрузка происходит через DAL сервис,
-     * соответствующий этой сущности. Если DAL Service найти не удалось, то метод выбрасывает {@link IllegalArgumentException}
+     * Р’С‹РіСЂСѓР¶Р°РµС‚ РёР· Р±Р°Р·С‹ РґР°РЅРЅС‹С… СЃРїРёСЃРѕРє СЃСѓС‰РЅРѕСЃС‚РµР№, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёС… СѓРєР°Р·Р°РЅРЅС‹Рј DTO РѕР±СЉРµРєС‚Р°Рј. Р’С‹РіСЂСѓР·РєР° РїСЂРѕРёСЃС…РѕРґРёС‚ С‡РµСЂРµР· DAL СЃРµСЂРІРёСЃ,
+     * СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ СЌС‚РѕР№ СЃСѓС‰РЅРѕСЃС‚Рё. Р•СЃР»Рё DAL Service РЅР°Р№С‚Рё РЅРµ СѓРґР°Р»РѕСЃСЊ, С‚Рѕ РјРµС‚РѕРґ РІС‹Р±СЂР°СЃС‹РІР°РµС‚ {@link IllegalArgumentException}
      *
-     * @param dtos        список DTO объектов
-     * @param entityClass класс сущности
-     * @param <ENTITY>    класс сущности
-     * @param <DTO>       класс DTO объекта
-     * @return найденная сущность.
-     * @throws IllegalArgumentException указанному классу сущности не соотвествует DAL сервис
+     * @param dtos        СЃРїРёСЃРѕРє DTO РѕР±СЉРµРєС‚РѕРІ
+     * @param entityClass РєР»Р°СЃСЃ СЃСѓС‰РЅРѕСЃС‚Рё
+     * @param <ENTITY>    РєР»Р°СЃСЃ СЃСѓС‰РЅРѕСЃС‚Рё
+     * @param <DTO>       РєР»Р°СЃСЃ DTO РѕР±СЉРµРєС‚Р°
+     * @return РЅР°Р№РґРµРЅРЅР°СЏ СЃСѓС‰РЅРѕСЃС‚СЊ.
+     * @throws IllegalArgumentException СѓРєР°Р·Р°РЅРЅРѕРјСѓ РєР»Р°СЃСЃСѓ СЃСѓС‰РЅРѕСЃС‚Рё РЅРµ СЃРѕРѕС‚РІРµСЃС‚РІСѓРµС‚ DAL СЃРµСЂРІРёСЃ
      */
     protected <ENTITY extends DefaultPersistentObject, DTO extends EntityDto> List<ENTITY> findEntity(List<DTO> dtos, Class<ENTITY> entityClass) {
         List<ENTITY> result = new ArrayList<>();
@@ -133,28 +133,28 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     }
 
     /**
-     * Выгружает из базы данных сущность, соответствующую указанному DTO объекту. Выгрузка происходит через DAL сервис,
-     * соответствующий этой сущности. Если DAL Service найти не удалось, то метод выбрасывает {@link IllegalArgumentException}
+     * Р’С‹РіСЂСѓР¶Р°РµС‚ РёР· Р±Р°Р·С‹ РґР°РЅРЅС‹С… СЃСѓС‰РЅРѕСЃС‚СЊ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ СѓРєР°Р·Р°РЅРЅРѕРјСѓ DTO РѕР±СЉРµРєС‚Сѓ. Р’С‹РіСЂСѓР·РєР° РїСЂРѕРёСЃС…РѕРґРёС‚ С‡РµСЂРµР· DAL СЃРµСЂРІРёСЃ,
+     * СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ СЌС‚РѕР№ СЃСѓС‰РЅРѕСЃС‚Рё. Р•СЃР»Рё DAL Service РЅР°Р№С‚Рё РЅРµ СѓРґР°Р»РѕСЃСЊ, С‚Рѕ РјРµС‚РѕРґ РІС‹Р±СЂР°СЃС‹РІР°РµС‚ {@link IllegalArgumentException}
      *
-     * @param dto         DTO объект
-     * @param entityClass класс сущности
-     * @param <ENTITY>    класс сущности
-     * @param <DTO>       класс DTO объекта
-     * @return найденная сущность.
-     * @throws IllegalArgumentException указанному классу сущности не соотвествует DAL сервис
+     * @param dto         DTO РѕР±СЉРµРєС‚
+     * @param entityClass РєР»Р°СЃСЃ СЃСѓС‰РЅРѕСЃС‚Рё
+     * @param <ENTITY>    РєР»Р°СЃСЃ СЃСѓС‰РЅРѕСЃС‚Рё
+     * @param <DTO>       РєР»Р°СЃСЃ DTO РѕР±СЉРµРєС‚Р°
+     * @return РЅР°Р№РґРµРЅРЅР°СЏ СЃСѓС‰РЅРѕСЃС‚СЊ.
+     * @throws IllegalArgumentException СѓРєР°Р·Р°РЅРЅРѕРјСѓ РєР»Р°СЃСЃСѓ СЃСѓС‰РЅРѕСЃС‚Рё РЅРµ СЃРѕРѕС‚РІРµСЃС‚РІСѓРµС‚ DAL СЃРµСЂРІРёСЃ
      */
     protected <ENTITY extends DefaultPersistentObject, DTO extends EntityDto> ENTITY findEntity(DTO dto, Class<ENTITY> entityClass) {
         return dto != null ? getDalService(entityClass).findById(dto.getId()) : null;
     }
 
     /**
-     * Находит DAL сервис для указанного класса
+     * РќР°С…РѕРґРёС‚ DAL СЃРµСЂРІРёСЃ РґР»СЏ СѓРєР°Р·Р°РЅРЅРѕРіРѕ РєР»Р°СЃСЃР°
      *
-     * @param entityClass класс
-     * @param <ENTITY>    класс сущности
-     * @param <IdClass>   кдасс идентификатора сущности
-     * @return соответствующий DAL сервис
-     * @throws IllegalArgumentException указанному классу сущности не соотвествует DAL сервис
+     * @param entityClass РєР»Р°СЃСЃ
+     * @param <ENTITY>    РєР»Р°СЃСЃ СЃСѓС‰РЅРѕСЃС‚Рё
+     * @param <IdClass>   РєРґР°СЃСЃ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° СЃСѓС‰РЅРѕСЃС‚Рё
+     * @return СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ DAL СЃРµСЂРІРёСЃ
+     * @throws IllegalArgumentException СѓРєР°Р·Р°РЅРЅРѕРјСѓ РєР»Р°СЃСЃСѓ СЃСѓС‰РЅРѕСЃС‚Рё РЅРµ СЃРѕРѕС‚РІРµСЃС‚РІСѓРµС‚ DAL СЃРµСЂРІРёСЃ
      */
     protected <ENTITY extends AbstractPersistentObject<IdClass>, IdClass> AbstractService<? extends ENTITY, IdClass> getDalService(Class<ENTITY> entityClass) {
         AbstractService<? extends ENTITY, IdClass> service = (AbstractService<? extends ENTITY, IdClass>) daoServices.get(entityClass);
@@ -173,33 +173,33 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     }
 
     /**
-     * Удаляет сущность, соответствующую этому объекту
+     * РЈРґР°Р»СЏРµС‚ СЃСѓС‰РЅРѕСЃС‚СЊ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ СЌС‚РѕРјСѓ РѕР±СЉРµРєС‚Сѓ
      *
-     * @param dto объект, который нужно удалить
+     * @param dto РѕР±СЉРµРєС‚, РєРѕС‚РѕСЂС‹Р№ РЅСѓР¶РЅРѕ СѓРґР°Р»РёС‚СЊ
      */
     public void delete(DTO dto) {
         getDalService().delete(Collections.singletonList(toEntity(dto)));
     }
 
     /**
-     * Создаёт сущность с тем же идентификатором, что и DTO
+     * РЎРѕР·РґР°С‘С‚ СЃСѓС‰РЅРѕСЃС‚СЊ СЃ С‚РµРј Р¶Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРј, С‡С‚Рѕ Рё DTO
      *
-     * @param dto исходная DTO
-     * @return созданную сущность
+     * @param dto РёСЃС…РѕРґРЅР°СЏ DTO
+     * @return СЃРѕР·РґР°РЅРЅСѓСЋ СЃСѓС‰РЅРѕСЃС‚СЊ
      */
     protected ENTITY toEntity(DTO dto) {
         return toEntity(dto, getEntityClass(), getEntityIdClass());
     }
 
     /**
-     * Создаёт сущность с тем же идентификатором, что и DTO
+     * РЎРѕР·РґР°С‘С‚ СЃСѓС‰РЅРѕСЃС‚СЊ СЃ С‚РµРј Р¶Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРј, С‡С‚Рѕ Рё DTO
      *
-     * @param dto     исходная DTO
-     * @param cl      класс сущности
-     * @param idClass класс идентификатора
-     * @param <T>     конечный класс сущности
-     * @param <ID>    класс идентификатора сущности
-     * @return созданную сущность
+     * @param dto     РёСЃС…РѕРґРЅР°СЏ DTO
+     * @param cl      РєР»Р°СЃСЃ СЃСѓС‰РЅРѕСЃС‚Рё
+     * @param idClass РєР»Р°СЃСЃ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°
+     * @param <T>     РєРѕРЅРµС‡РЅС‹Р№ РєР»Р°СЃСЃ СЃСѓС‰РЅРѕСЃС‚Рё
+     * @param <ID>    РєР»Р°СЃСЃ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° СЃСѓС‰РЅРѕСЃС‚Рё
+     * @return СЃРѕР·РґР°РЅРЅСѓСЋ СЃСѓС‰РЅРѕСЃС‚СЊ
      */
     protected <T extends AbstractPersistentObject<ID>, ID> T toEntity(AbstractEntityDto dto, Class<T> cl, Class<ID> idClass) {
         if (dto == null) {
@@ -230,13 +230,13 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     }
 
     /**
-     * Достаёт из базы данных объект с указанным идентификатором, либо создаёт новый, а также заплоняет все поля
-     * на основе данных из dto. Не сохраняет в базу полученные данные.
+     * Р”РѕСЃС‚Р°С‘С‚ РёР· Р±Р°Р·С‹ РґР°РЅРЅС‹С… РѕР±СЉРµРєС‚ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРј, Р»РёР±Рѕ СЃРѕР·РґР°С‘С‚ РЅРѕРІС‹Р№, Р° С‚Р°РєР¶Рµ Р·Р°РїР»РѕРЅСЏРµС‚ РІСЃРµ РїРѕР»СЏ
+     * РЅР° РѕСЃРЅРѕРІРµ РґР°РЅРЅС‹С… РёР· dto. РќРµ СЃРѕС…СЂР°РЅСЏРµС‚ РІ Р±Р°Р·Сѓ РїРѕР»СѓС‡РµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ.
      *
-     * @param source источник - dto
-     * @param cl     класс сущности
-     * @param <T>    класс сущности
-     * @return экземплар сущности
+     * @param source РёСЃС‚РѕС‡РЅРёРє - dto
+     * @param cl     РєР»Р°СЃСЃ СЃСѓС‰РЅРѕСЃС‚Рё
+     * @param <T>    РєР»Р°СЃСЃ СЃСѓС‰РЅРѕСЃС‚Рё
+     * @return СЌРєР·РµРјРїР»Р°СЂ СЃСѓС‰РЅРѕСЃС‚Рё
      */
     protected <T extends AbstractPersistentObject> T convertToEntity(AbstractEntityDto source, Class<T> cl) {
         try {
@@ -252,11 +252,11 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     }
 
     /**
-     * Копирует все свойства из DTO в ENTITY. Свойства, которые сами являются хранимыми объектами, достаются из базы
-     * по идентификаторам.
+     * РљРѕРїРёСЂСѓРµС‚ РІСЃРµ СЃРІРѕР№СЃС‚РІР° РёР· DTO РІ ENTITY. РЎРІРѕР№СЃС‚РІР°, РєРѕС‚РѕСЂС‹Рµ СЃР°РјРё СЏРІР»СЏСЋС‚СЃСЏ С…СЂР°РЅРёРјС‹РјРё РѕР±СЉРµРєС‚Р°РјРё, РґРѕСЃС‚Р°СЋС‚СЃСЏ РёР· Р±Р°Р·С‹
+     * РїРѕ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°Рј.
      *
-     * @param source источник DTO
-     * @param result результирующий ENTITY
+     * @param source РёСЃС‚РѕС‡РЅРёРє DTO
+     * @param result СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РёР№ ENTITY
      */
     protected void copy(Object source, Object result) {
         try {
@@ -285,7 +285,7 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
                         continue;
                     }
                     Object destinationValue;
-                    if (isDeleteValue(sourceValue)) { //в свойстве специальная константа, которая говорит, что надо обнулить свойство
+                    if (isDeleteValue(sourceValue)) { //РІ СЃРІРѕР№СЃС‚РІРµ СЃРїРµС†РёР°Р»СЊРЅР°СЏ РєРѕРЅСЃС‚Р°РЅС‚Р°, РєРѕС‚РѕСЂР°СЏ РіРѕРІРѕСЂРёС‚, С‡С‚Рѕ РЅР°РґРѕ РѕР±РЅСѓР»РёС‚СЊ СЃРІРѕР№СЃС‚РІРѕ
                         destinationValue = null;
                     } else if (sourceValue instanceof EntityDto) {
                         if (DefaultPersistentObject.class.isAssignableFrom(destinationClass)) {
@@ -293,7 +293,7 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
                         } else {
                             continue;
                         }
-                    } else if (destinationClass.isAssignableFrom(sourceValue.getClass())) { //Конвертируем простое значение
+                    } else if (destinationClass.isAssignableFrom(sourceValue.getClass())) { //РљРѕРЅРІРµСЂС‚РёСЂСѓРµРј РїСЂРѕСЃС‚РѕРµ Р·РЅР°С‡РµРЅРёРµ
                         destinationValue = sourceValue;
                     } else {
                         continue;
@@ -307,10 +307,10 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     }
 
     /**
-     * Проверяет, является ли переданное значение маркером на удаление
+     * РџСЂРѕРІРµСЂСЏРµС‚, СЏРІР»СЏРµС‚СЃСЏ Р»Рё РїРµСЂРµРґР°РЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РјР°СЂРєРµСЂРѕРј РЅР° СѓРґР°Р»РµРЅРёРµ
      *
-     * @param value значение
-     * @return {@code true} если это маркер
+     * @param value Р·РЅР°С‡РµРЅРёРµ
+     * @return {@code true} РµСЃР»Рё СЌС‚Рѕ РјР°СЂРєРµСЂ
      */
     protected boolean isDeleteValue(Object value) {
         if (value == null) {
@@ -326,10 +326,10 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     }
 
     /**
-     * Проверяет, является ли переданное значение маркером на удаление
+     * РџСЂРѕРІРµСЂСЏРµС‚, СЏРІР»СЏРµС‚СЃСЏ Р»Рё РїРµСЂРµРґР°РЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РјР°СЂРєРµСЂРѕРј РЅР° СѓРґР°Р»РµРЅРёРµ
      *
-     * @param value значение
-     * @return {@code true} если это маркер
+     * @param value Р·РЅР°С‡РµРЅРёРµ
+     * @return {@code true} РµСЃР»Рё СЌС‚Рѕ РјР°СЂРєРµСЂ
      */
     protected boolean isDeleteValue(Collection<? extends EntityDto> value) {
         return value != null && value.size() == 1 && value.iterator().next().getId() < 0;

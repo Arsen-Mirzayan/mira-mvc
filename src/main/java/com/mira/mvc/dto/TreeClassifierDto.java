@@ -1,7 +1,7 @@
 package com.mira.mvc.dto;
 
 /**
- * Древовидный классификатор
+ * Р”СЂРµРІРѕРІРёРґРЅС‹Р№ РєР»Р°СЃСЃРёС„РёРєР°С‚РѕСЂ
  */
 public class TreeClassifierDto<T extends TreeClassifierDto> extends ClassifierDto {
   protected T parent;

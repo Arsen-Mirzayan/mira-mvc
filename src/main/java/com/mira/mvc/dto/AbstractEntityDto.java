@@ -1,7 +1,7 @@
 package com.mira.mvc.dto;
 
 /**
- * Абстрактный класс для DTO
+ * РђР±СЃС‚СЂР°РєС‚РЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ DTO
  */
 public abstract class AbstractEntityDto<IdClass> {
   public abstract IdClass getId();

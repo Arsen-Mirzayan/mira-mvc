@@ -8,7 +8,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import java.util.Comparator;
 
 /**
- * Компаратор по свойстам сущностей
+ * РљРѕРјРїР°СЂР°С‚РѕСЂ РїРѕ СЃРІРѕР№СЃС‚Р°Рј СЃСѓС‰РЅРѕСЃС‚РµР№
  */
 public class EntityComparator<T> implements Comparator<T> {
 
