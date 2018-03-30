@@ -28,7 +28,6 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     protected final String deletingString = "-2147483648";
     @Autowired
     protected DtoConversionService dtoConversionService;
-    @Autowired
     protected boolean isRestful = false;
 
     protected Map<Class, AbstractService> daoServices = new HashMap<>();
