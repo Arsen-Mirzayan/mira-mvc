@@ -1,18 +1,13 @@
-/*
- * Decompiled with CFR 0_123.
- * 
- * Could not load the following classes:
- *  org.springframework.http.HttpStatus
- *  org.springframework.web.bind.annotation.ResponseStatus
- */
 package com.mira.mvc.system;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value=HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException
-extends RuntimeException {
+/**
+ * Сущность не найдена
+ */
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException() {
     }
 
@@ -32,4 +27,3 @@ extends RuntimeException {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
-
