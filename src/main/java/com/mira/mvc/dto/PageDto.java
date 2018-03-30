@@ -1,7 +1,7 @@
 package com.mira.mvc.dto;
 
 /**
- * Страница
+ * РЎС‚СЂР°РЅРёС†Р°
  */
 public class PageDto {
   protected String title;

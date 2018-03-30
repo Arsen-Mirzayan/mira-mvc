@@ -1,7 +1,7 @@
 package com.mira.mvc.dto;
 
 /**
- * Dto для словарей
+ * Dto РґР»СЏ СЃР»РѕРІР°СЂРµР№
  */
 public class DictionaryDto extends EntityDto {
   protected String name;
@@ -16,6 +16,10 @@ public class DictionaryDto extends EntityDto {
   }
 
   public DictionaryDto() {
+  }
+
+  public DictionaryDto(Long id) {
+    super(id);
   }
 
   public DictionaryDto(String name) {

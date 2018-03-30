@@ -1,7 +1,7 @@
 package com.mira.mvc.dto;
 
 /**
- * Общий классификатор
+ * РћР±С‰РёР№ РєР»Р°СЃСЃРёС„РёРєР°С‚РѕСЂ
  */
 public class ClassifierDto extends DictionaryDto {
   protected String code;

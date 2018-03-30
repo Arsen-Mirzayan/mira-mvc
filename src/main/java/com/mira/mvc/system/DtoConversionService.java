@@ -1,11 +1,3 @@
-/*
- * Decompiled with CFR 0_123.
- * 
- * Could not load the following classes:
- *  com.mira.jpa2.PageResponse
- *  org.dozer.Mapper
- *  org.springframework.beans.factory.annotation.Autowired
- */
 package com.mira.mvc.system;
 
 import com.mira.jpa2.PageResponse;
@@ -44,12 +36,12 @@ public class DtoConversionService {
   }
 
   /**
-   * Производит базовую конвертацию свойств, используя описанный маппинг.
+   * РџСЂРѕРёР·РІРѕРґРёС‚ Р±Р°Р·РѕРІСѓСЋ РєРѕРЅРІРµСЂС‚Р°С†РёСЋ СЃРІРѕР№СЃС‚РІ, РёСЃРїРѕР»СЊР·СѓСЏ РѕРїРёСЃР°РЅРЅС‹Р№ РјР°РїРїРёРЅРі.
    *
-   * @param source           источник
-   * @param destinationClass класс объекта назначения
-   * @param <T>              тип класса объекта, который мы хотим получить
-   * @return объект указанного класса
+   * @param source           РёСЃС‚РѕС‡РЅРёРє
+   * @param destinationClass РєР»Р°СЃСЃ РѕР±СЉРµРєС‚Р° РЅР°Р·РЅР°С‡РµРЅРёСЏ
+   * @param <T>              С‚РёРї РєР»Р°СЃСЃР° РѕР±СЉРµРєС‚Р°, РєРѕС‚РѕСЂС‹Р№ РјС‹ С…РѕС‚РёРј РїРѕР»СѓС‡РёС‚СЊ
+   * @return РѕР±СЉРµРєС‚ СѓРєР°Р·Р°РЅРЅРѕРіРѕ РєР»Р°СЃСЃР°
    */
   protected <T> T convertBasic(Object source, Class<T> destinationClass) {
     if (source == null) {
@@ -59,12 +51,12 @@ public class DtoConversionService {
   }
 
   /**
-   * Создаёт объект указанного типа и заполняет его свойства на основе источника
+   * РЎРѕР·РґР°С‘С‚ РѕР±СЉРµРєС‚ СѓРєР°Р·Р°РЅРЅРѕРіРѕ С‚РёРїР° Рё Р·Р°РїРѕР»РЅСЏРµС‚ РµРіРѕ СЃРІРѕР№СЃС‚РІР° РЅР° РѕСЃРЅРѕРІРµ РёСЃС‚РѕС‡РЅРёРєР°
    *
-   * @param source           источник
-   * @param destinationClass класс объекта назначения
-   * @param <T>              тип класса объекта, который мы хотим получить
-   * @return новый объект
+   * @param source           РёСЃС‚РѕС‡РЅРёРє
+   * @param destinationClass РєР»Р°СЃСЃ РѕР±СЉРµРєС‚Р° РЅР°Р·РЅР°С‡РµРЅРёСЏ
+   * @param <T>              С‚РёРї РєР»Р°СЃСЃР° РѕР±СЉРµРєС‚Р°, РєРѕС‚РѕСЂС‹Р№ РјС‹ С…РѕС‚РёРј РїРѕР»СѓС‡РёС‚СЊ
+   * @return РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚
    */
   public <T> T convert(Object source, Class<T> destinationClass) {
     T result = convertBasic(source, destinationClass);
@@ -75,12 +67,12 @@ public class DtoConversionService {
   }
 
   /**
-   * Создаёт список объектов указанного типа и заполняет их свойства на основе источника
+   * РЎРѕР·РґР°С‘С‚ СЃРїРёСЃРѕРє РѕР±СЉРµРєС‚РѕРІ СѓРєР°Р·Р°РЅРЅРѕРіРѕ С‚РёРїР° Рё Р·Р°РїРѕР»РЅСЏРµС‚ РёС… СЃРІРѕР№СЃС‚РІР° РЅР° РѕСЃРЅРѕРІРµ РёСЃС‚РѕС‡РЅРёРєР°
    *
-   * @param sources          список источников
-   * @param destinationClass класс объекта назначения
-   * @param <T>              тип объекта, который мы хотим получить
-   * @return новый объект
+   * @param sources          СЃРїРёСЃРѕРє РёСЃС‚РѕС‡РЅРёРєРѕРІ
+   * @param destinationClass РєР»Р°СЃСЃ РѕР±СЉРµРєС‚Р° РЅР°Р·РЅР°С‡РµРЅРёСЏ
+   * @param <T>              С‚РёРї РѕР±СЉРµРєС‚Р°, РєРѕС‚РѕСЂС‹Р№ РјС‹ С…РѕС‚РёРј РїРѕР»СѓС‡РёС‚СЊ
+   * @return РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚
    */
   public <T> List<T> convertAll(List sources, Class<T> destinationClass) {
     List<T> result = new ArrayList<>(sources.size());
@@ -91,12 +83,12 @@ public class DtoConversionService {
   }
 
   /**
-   * Создаёт список объектов указанного типа и заполняет их свойства на основе источника
+   * РЎРѕР·РґР°С‘С‚ СЃРїРёСЃРѕРє РѕР±СЉРµРєС‚РѕРІ СѓРєР°Р·Р°РЅРЅРѕРіРѕ С‚РёРїР° Рё Р·Р°РїРѕР»РЅСЏРµС‚ РёС… СЃРІРѕР№СЃС‚РІР° РЅР° РѕСЃРЅРѕРІРµ РёСЃС‚РѕС‡РЅРёРєР°
    *
-   * @param sources          список источников
-   * @param destinationClass класс объекта назначения
-   * @param <T>              тип объекта, который мы хотим получить
-   * @return новый объект
+   * @param sources          СЃРїРёСЃРѕРє РёСЃС‚РѕС‡РЅРёРєРѕРІ
+   * @param destinationClass РєР»Р°СЃСЃ РѕР±СЉРµРєС‚Р° РЅР°Р·РЅР°С‡РµРЅРёСЏ
+   * @param <T>              С‚РёРї РѕР±СЉРµРєС‚Р°, РєРѕС‚РѕСЂС‹Р№ РјС‹ С…РѕС‚РёРј РїРѕР»СѓС‡РёС‚СЊ
+   * @return РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚
    */
   public <T> Set<T> convertAll(Set sources, Class<T> destinationClass) {
     Set<T> result = new HashSet<>(sources.size());
@@ -107,24 +99,24 @@ public class DtoConversionService {
   }
 
   /**
-   * Конвертирует данные в результате запроса
+   * РљРѕРЅРІРµСЂС‚РёСЂСѓРµС‚ РґР°РЅРЅС‹Рµ РІ СЂРµР·СѓР»СЊС‚Р°С‚Рµ Р·Р°РїСЂРѕСЃР°
    *
-   * @param source           исходный результат запроса
-   * @param destinationClass класс назначения
-   * @param <T>              тип объекта, который мы хотим получить
-   * @return новый результат запроса
+   * @param source           РёСЃС…РѕРґРЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ Р·Р°РїСЂРѕСЃР°
+   * @param destinationClass РєР»Р°СЃСЃ РЅР°Р·РЅР°С‡РµРЅРёСЏ
+   * @param <T>              С‚РёРї РѕР±СЉРµРєС‚Р°, РєРѕС‚РѕСЂС‹Р№ РјС‹ С…РѕС‚РёРј РїРѕР»СѓС‡РёС‚СЊ
+   * @return РЅРѕРІС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ Р·Р°РїСЂРѕСЃР°
    */
   public <T> PageResponse<T> convertPageResponse(PageResponse source, Class<T> destinationClass) {
     return new PageResponse<>(convertAll(source.getResult(), destinationClass), source.getPage(), source.getPageCount(), source.getRecordCount());
   }
 
   /**
-   * Ищет метод в текущем классе, который отвечает за дополнительную конвертацию объектов. Если метод найден,
-   * то вызывает его. Если метод не найден, то ничего не происходит.
+   * РС‰РµС‚ РјРµС‚РѕРґ РІ С‚РµРєСѓС‰РµРј РєР»Р°СЃСЃРµ, РєРѕС‚РѕСЂС‹Р№ РѕС‚РІРµС‡Р°РµС‚ Р·Р° РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅСѓСЋ РєРѕРЅРІРµСЂС‚Р°С†РёСЋ РѕР±СЉРµРєС‚РѕРІ. Р•СЃР»Рё РјРµС‚РѕРґ РЅР°Р№РґРµРЅ,
+   * С‚Рѕ РІС‹Р·С‹РІР°РµС‚ РµРіРѕ. Р•СЃР»Рё РјРµС‚РѕРґ РЅРµ РЅР°Р№РґРµРЅ, С‚Рѕ РЅРёС‡РµРіРѕ РЅРµ РїСЂРѕРёСЃС…РѕРґРёС‚.
    *
-   * @param source источник
-   * @param result частично заполненный результат
-   * @param <T>    тип объекта, который мы хотим получить
+   * @param source РёСЃС‚РѕС‡РЅРёРє
+   * @param result С‡Р°СЃС‚РёС‡РЅРѕ Р·Р°РїРѕР»РЅРµРЅРЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚
+   * @param <T>    С‚РёРї РѕР±СЉРµРєС‚Р°, РєРѕС‚РѕСЂС‹Р№ РјС‹ С…РѕС‚РёРј РїРѕР»СѓС‡РёС‚СЊ
    */
   protected <T> void convertAdditional(Object source, T result) {
     Class<?> sourceClass = source.getClass();
