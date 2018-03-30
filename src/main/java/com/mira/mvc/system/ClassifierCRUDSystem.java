@@ -9,31 +9,31 @@ import com.mira.jpa2.service.ClassifierService;
 import com.mira.mvc.dto.ClassifierDto;
 
 /**
- * Родительский класс для систем работы с классификаторами
+ * Р РѕРґРёС‚РµР»СЊСЃРєРёР№ РєР»Р°СЃСЃ РґР»СЏ СЃРёСЃС‚РµРј СЂР°Р±РѕС‚С‹ СЃ РєР»Р°СЃСЃРёС„РёРєР°С‚РѕСЂР°РјРё
  *
- * @param <ENTITY>  класс сущности
- * @param <SERVICE> класс сервиса для работы с сущностью
- * @param <DTO>     класс DTO
+ * @param <ENTITY>  РєР»Р°СЃСЃ СЃСѓС‰РЅРѕСЃС‚Рё
+ * @param <SERVICE> РєР»Р°СЃСЃ СЃРµСЂРІРёСЃР° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ СЃСѓС‰РЅРѕСЃС‚СЊСЋ
+ * @param <DTO>     РєР»Р°СЃСЃ DTO
  */
 public abstract class ClassifierCRUDSystem<ENTITY extends Classifier, SERVICE extends ClassifierService<ENTITY>, DTO extends ClassifierDto> extends DefaultCRUDSystem<ENTITY, SERVICE, DTO> {
   /**
-   * Находит элемент классификатора по коду
+   * РќР°С…РѕРґРёС‚ СЌР»РµРјРµРЅС‚ РєР»Р°СЃСЃРёС„РёРєР°С‚РѕСЂР° РїРѕ РєРѕРґСѓ
    *
-   * @param code код
-   * @return элемент классификатора
+   * @param code РєРѕРґ
+   * @return СЌР»РµРјРµРЅС‚ РєР»Р°СЃСЃРёС„РёРєР°С‚РѕСЂР°
    */
   public DTO findByCode(String code) {
     return convert(getDalService().findByCode(code));
   }
 
   /**
-   * Поиск по коду и по имени
+   * РџРѕРёСЃРє РїРѕ РєРѕРґСѓ Рё РїРѕ РёРјРµРЅРё
    *
-   * @param code     код
-   * @param name     имя
-   * @param page     номер страницы
-   * @param pageSize размер страницы
-   * @return страница с результатом
+   * @param code     РєРѕРґ
+   * @param name     РёРјСЏ
+   * @param page     РЅРѕРјРµСЂ СЃС‚СЂР°РЅРёС†С‹
+   * @param pageSize СЂР°Р·РјРµСЂ СЃС‚СЂР°РЅРёС†С‹
+   * @return СЃС‚СЂР°РЅРёС†Р° СЃ СЂРµР·СѓР»СЊС‚Р°С‚РѕРј
    */
   public PageResponse<DTO> search(String code, String name, long page, long pageSize) {
     PageRequest<ENTITY> request = new PageRequest<>(page, pageSize, new Orders<>(Classifier_.code));

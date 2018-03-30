@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Система интегрирует в себя CRUD операции
+ * РЎРёСЃС‚РµРјР° РёРЅС‚РµРіСЂРёСЂСѓРµС‚ РІ СЃРµР±СЏ CRUD РѕРїРµСЂР°С†РёРё
  */
 public abstract class DefaultCRUDSystem<ENTITY extends DefaultPersistentObject, SERVICE extends DefaultDalService<ENTITY>, DTO extends EntityDto>
     extends DefaultSystem<ENTITY, SERVICE, DTO, Long, Long> {
@@ -39,10 +39,10 @@ public abstract class DefaultCRUDSystem<ENTITY extends DefaultPersistentObject, 
   }
 
   /**
-   * Находит хранимый объект, соответствующий указанному DTO, и обновляет его свойства. Либо сохраняет новый.
+   * РќР°С…РѕРґРёС‚ С…СЂР°РЅРёРјС‹Р№ РѕР±СЉРµРєС‚, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ СѓРєР°Р·Р°РЅРЅРѕРјСѓ DTO, Рё РѕР±РЅРѕРІР»СЏРµС‚ РµРіРѕ СЃРІРѕР№СЃС‚РІР°. Р›РёР±Рѕ СЃРѕС…СЂР°РЅСЏРµС‚ РЅРѕРІС‹Р№.
    *
-   * @param object DTO объект
-   * @return сохранённый объект
+   * @param object DTO РѕР±СЉРµРєС‚
+   * @return СЃРѕС…СЂР°РЅС‘РЅРЅС‹Р№ РѕР±СЉРµРєС‚
    */
   public DTO save(DTO object) {
     ENTITY entity = convertToEntity(object, getEntityClass());

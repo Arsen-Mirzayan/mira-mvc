@@ -14,16 +14,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Система для работы с классификаторами
+ * РЎРёСЃС‚РµРјР° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РєР»Р°СЃСЃРёС„РёРєР°С‚РѕСЂР°РјРё
  */
 public abstract class TreeClassifierCRUDSystem<ENTITY extends TreeClassifier<ENTITY>, SERVICE extends TreeClassifierService<ENTITY>, DTO extends TreeClassifierDto>
     extends ClassifierCRUDSystem<ENTITY, SERVICE, DTO> {
 
     /**
-     * Находит список дочерних элементов
+     * РќР°С…РѕРґРёС‚ СЃРїРёСЃРѕРє РґРѕС‡РµСЂРЅРёС… СЌР»РµРјРµРЅС‚РѕРІ
      *
-     * @param parent родительский элемент
-     * @return список дочерних элементов
+     * @param parent СЂРѕРґРёС‚РµР»СЊСЃРєРёР№ СЌР»РµРјРµРЅС‚
+     * @return СЃРїРёСЃРѕРє РґРѕС‡РµСЂРЅРёС… СЌР»РµРјРµРЅС‚РѕРІ
      */
     public List<DTO> findChildren(DTO parent) {
         List<ENTITY> children = getDalService().findChildren(toEntity(parent));
@@ -38,12 +38,12 @@ public abstract class TreeClassifierCRUDSystem<ENTITY extends TreeClassifier<ENT
     }
 
     /**
-     * Находит список дочерних категорий. Если параметр parent пустой, то возвращает список родительских категорий
+     * РќР°С…РѕРґРёС‚ СЃРїРёСЃРѕРє РґРѕС‡РµСЂРЅРёС… РєР°С‚РµРіРѕСЂРёР№. Р•СЃР»Рё РїР°СЂР°РјРµС‚СЂ parent РїСѓСЃС‚РѕР№, С‚Рѕ РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє СЂРѕРґРёС‚РµР»СЊСЃРєРёС… РєР°С‚РµРіРѕСЂРёР№
      *
-     * @param parent   родительская категория
-     * @param page     номер страницы
-     * @param pageSize размер страницы
-     * @return список дочерних категорий
+     * @param parent   СЂРѕРґРёС‚РµР»СЊСЃРєР°СЏ РєР°С‚РµРіРѕСЂРёСЏ
+     * @param page     РЅРѕРјРµСЂ СЃС‚СЂР°РЅРёС†С‹
+     * @param pageSize СЂР°Р·РјРµСЂ СЃС‚СЂР°РЅРёС†С‹
+     * @return СЃРїРёСЃРѕРє РґРѕС‡РµСЂРЅРёС… РєР°С‚РµРіРѕСЂРёР№
      */
     public PageResponse<DTO> findChildren(DTO parent, long page, long pageSize) {
         PageRequest<ENTITY> pageRequest = new PageRequest<>(page, pageSize, new Orders<>(TreeClassifier_.name));
