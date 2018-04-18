@@ -39,4 +39,16 @@ public abstract class ClassifierCRUDSystem<ENTITY extends Classifier, SERVICE ex
     PageRequest<ENTITY> request = new PageRequest<>(page, pageSize, new Orders<>(Classifier_.code));
     return convert(getDalService().search(code, name, request));
   }
+
+  /**
+   * Находит элемент классификатора по коду, если не находит,то создаёт новый
+   *
+   * @param code код
+   * @param name имя
+   * @return элемент классификатора
+   */
+  public DTO findOrCreate(String code, String name) {
+    return convert(getDalService().findOrCreate(code, name));
+  }
+
 }
