@@ -322,7 +322,7 @@ public abstract class DefaultSystem<ENTITY extends AbstractPersistentObject<Enti
     if (value instanceof Date) {
       return deletingDate.compareTo((Date) value) == 0;
     } else if (value instanceof EntityDto) {
-      return ((EntityDto) value).getId() < 0;
+      return ClassUtils.coalesce(((EntityDto) value).getId(), 0L) < 0;
     } else {
       return deletingString.equals(value.toString());
     }
