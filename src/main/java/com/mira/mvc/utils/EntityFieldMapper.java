@@ -14,10 +14,25 @@ import java.lang.reflect.Method;
 public class EntityFieldMapper implements CustomFieldMapper {
   @Override
   public boolean mapField(Object source, Object destination, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping) {
+
+    String destFieldName = fieldMapping.getDestFieldName();
+    Method setter = ClassUtils.getSetter(destination.getClass(), destFieldName);
+    Class<?> destFieldType = setter.getParameterTypes()[0];
+
+    //Свойства id мы не должны устанавливать явно в хранимые объекты
+    if (destination instanceof DefaultPersistentObject
+        && "id".equals(destFieldName)) {
+      return true;
+    }
+
+    //Игнорируем свойства хранимых объектов, которые также являются хранимыми объектами.
+    if (destination instanceof DefaultPersistentObject
+        && DefaultPersistentObject.class.isAssignableFrom(destFieldType)) {
+      return true;
+    }
+
     if (sourceFieldValue instanceof DefaultPersistentObject) {
-      String destFieldName = fieldMapping.getDestFieldName();
-      Method setter = ClassUtils.getSetter(destination.getClass(), destFieldName);
-      Class<?> destFieldType = setter.getParameterTypes()[0];
+
       if (EntityDto.class.isAssignableFrom(destFieldType)) {
         Long id = ((DefaultPersistentObject) sourceFieldValue).getId();
         EntityDto dto = (EntityDto) ClassUtils.newInstance(destFieldType);
