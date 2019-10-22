@@ -6,6 +6,13 @@ package com.mira.mvc.dto;
 public class ClassifierDto extends DictionaryDto {
   protected String code;
 
+  public ClassifierDto() {
+  }
+
+  public ClassifierDto(Long id) {
+    super(id);
+  }
+
   public String getCode() {
     return code;
   }
