@@ -67,8 +67,18 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
    * @param entity сущность
    * @return DTO
    */
+  protected <T> T convert(ENTITY entity, Class<T> destClass) {
+    return entity == null ? null : mapper.map(entity, destClass);
+  }
+
+  /**
+   * Преобразует сущность к DTO объекту
+   *
+   * @param entity сущность
+   * @return DTO
+   */
   protected DTO convert(ENTITY entity) {
-    return entity == null ? null : mapper.map(entity, getDtoClass());
+    return convert(entity, getDtoClass());
   }
 
   /**
