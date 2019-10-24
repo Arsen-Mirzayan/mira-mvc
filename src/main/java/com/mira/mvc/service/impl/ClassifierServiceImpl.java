@@ -8,6 +8,7 @@ import com.mira.jpa2.data.Classifier;
 import com.mira.jpa2.data.Classifier_;
 import com.mira.mvc.dto.ClassifierDto;
 import com.mira.mvc.service.ClassifierService;
+import org.dozer.Mapper;
 
 /**
  * Родительский класс для систем работы с классификаторами
@@ -19,6 +20,11 @@ import com.mira.mvc.service.ClassifierService;
 public abstract class ClassifierServiceImpl<ENTITY extends Classifier, SERVICE extends ClassifierDao<ENTITY>, DTO extends ClassifierDto>
     extends DictionaryServiceImpl<ENTITY, SERVICE, DTO>
     implements ClassifierService<ENTITY, SERVICE, DTO> {
+
+  public ClassifierServiceImpl(Mapper mapper, SERVICE dalService) {
+    super(mapper, dalService);
+  }
+
   @Override
   public DTO findByCode(String code) {
     return convert(getDalService().findByCode(code));
