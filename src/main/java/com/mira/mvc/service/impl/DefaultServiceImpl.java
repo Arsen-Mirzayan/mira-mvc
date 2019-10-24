@@ -4,6 +4,7 @@ import com.mira.jpa2.dao.DefaultDao;
 import com.mira.jpa2.data.DefaultPersistentObject;
 import com.mira.mvc.dto.EntityDto;
 import com.mira.mvc.service.DefaultService;
+import org.dozer.Mapper;
 
 /**
  * Система интегрирует в себя CRUD операции
@@ -15,6 +16,10 @@ public abstract class DefaultServiceImpl<
     extends AbstractServiceImpl<ENTITY, SERVICE, DTO, Long, Long>
 
     implements DefaultService<ENTITY, SERVICE, DTO> {
+
+  public DefaultServiceImpl(Mapper mapper, SERVICE dalService) {
+    super(mapper, dalService);
+  }
 
   @Override
   public Class<Long> getEntityIdClass() {

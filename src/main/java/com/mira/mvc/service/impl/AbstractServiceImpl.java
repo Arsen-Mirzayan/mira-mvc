@@ -9,7 +9,6 @@ import com.mira.mvc.service.ResourceNotFoundException;
 import com.mira.utils.ClassUtils;
 import com.mira.utils.DateUtils;
 import org.dozer.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
@@ -25,7 +24,6 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
   protected final Set<String> ignoredProperties = new HashSet<>();
   protected final Date deletingDate = DateUtils.create(1700, 1, 1);
   protected final String deletingString = "-2147483648";
-  @Autowired
   protected Mapper mapper;
 
   protected boolean isRestful = false;
@@ -34,6 +32,11 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
 
   {
     ignoredProperties.add("id");
+  }
+
+  public AbstractServiceImpl(Mapper mapper, SERVICE dalService) {
+    this.mapper = mapper;
+    this.dalService = dalService;
   }
 
   /**
