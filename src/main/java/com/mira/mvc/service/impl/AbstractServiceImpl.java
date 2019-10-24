@@ -67,7 +67,7 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
    * @param entity сущность
    * @return DTO
    */
-  protected <T> T convert(ENTITY entity, Class<T> destClass) {
+  protected <T> T convert(Object entity, Class<T> destClass) {
     return entity == null ? null : mapper.map(entity, destClass);
   }
 
