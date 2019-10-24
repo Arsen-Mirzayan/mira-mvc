@@ -10,6 +10,7 @@ import com.mira.jpa2.PageResponse;
 import com.mira.jpa2.data.Classifier_;
 import com.mira.jpa2.data.TreeClassifier;
 import com.mira.jpa2.data.TreeClassifier_;
+import org.dozer.Mapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +21,10 @@ import java.util.List;
 public abstract class TreeClassifierServiceImpl<ENTITY extends TreeClassifier<ENTITY>, SERVICE extends TreeClassifierDao<ENTITY>, DTO extends TreeClassifierDto>
     extends ClassifierServiceImpl<ENTITY, SERVICE, DTO>
     implements TreeClassifierService<ENTITY, SERVICE, DTO> {
+
+  public TreeClassifierServiceImpl(Mapper mapper, SERVICE dalService) {
+    super(mapper, dalService);
+  }
 
   @Override
   public List<DTO> findChildren(DTO parent) {
