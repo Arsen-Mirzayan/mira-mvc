@@ -62,13 +62,14 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
   protected abstract EntityIdClass convertId(DtoIdClass dtoId);
 
   /**
-   * Преобразует сущность к DTO объекту
+   * Проеобразуем объект к указанному классу с помощью маппера
    *
-   * @param entity сущность
-   * @return DTO
+   * @param source    исходный объект
+   * @param destClass класс, к которому нужно привести объект
+   * @return объект указанного класса
    */
-  protected <T> T convert(Object entity, Class<T> destClass) {
-    return entity == null ? null : mapper.map(entity, destClass);
+  protected <T> T convert(Object source, Class<T> destClass) {
+    return source == null ? null : mapper.map(source, destClass);
   }
 
   /**
