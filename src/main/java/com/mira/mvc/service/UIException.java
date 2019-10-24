@@ -1,4 +1,4 @@
-package com.mira.mvc.system;
+package com.mira.mvc.service;
 
 /**
  * Исключение, текст которого можно показывать пользователю

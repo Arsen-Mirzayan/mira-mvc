@@ -1,23 +1,20 @@
-package com.mira.mvc.system.impl;
+package com.mira.mvc.service.impl;
 
+import com.mira.jpa2.dao.DefaultDao;
 import com.mira.jpa2.data.DefaultPersistentObject;
-import com.mira.jpa2.service.DefaultDalService;
 import com.mira.mvc.dto.EntityDto;
-import com.mira.mvc.system.DefaultCRUDSystem;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mira.mvc.service.DefaultCRUDService;
 
 /**
  * Система интегрирует в себя CRUD операции
  */
-public abstract class DefaultCRUDSystemImpl<
+public abstract class DefaultCRUDServiceImpl<
     ENTITY extends DefaultPersistentObject
-    , SERVICE extends DefaultDalService<ENTITY>, DTO extends EntityDto
+    , SERVICE extends DefaultDao<ENTITY>, DTO extends EntityDto
     >
-    extends DefaultSystemImpl<ENTITY, SERVICE, DTO, Long, Long>
+    extends DefaultServiceImpl<ENTITY, SERVICE, DTO, Long, Long>
 
-    implements DefaultCRUDSystem<ENTITY, SERVICE, DTO> {
+    implements DefaultCRUDService<ENTITY, SERVICE, DTO> {
 
   @Override
   public Class<Long> getEntityIdClass() {

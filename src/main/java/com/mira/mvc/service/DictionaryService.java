@@ -1,7 +1,7 @@
-package com.mira.mvc.system;
+package com.mira.mvc.service;
 
+import com.mira.jpa2.dao.DictionaryDao;
 import com.mira.jpa2.data.DictionaryObject;
-import com.mira.jpa2.service.DictionaryService;
 import com.mira.mvc.dto.DictionaryDto;
 
 import java.util.List;
@@ -13,8 +13,8 @@ import java.util.List;
  * @param <SERVICE> сервис для рабоыт со словарём
  * @param <DTO>     транспортный класс
  */
-public interface DictionaryCRUDSystem<ENTITY extends DictionaryObject, SERVICE extends DictionaryService<ENTITY>, DTO extends DictionaryDto>
-    extends DefaultCRUDSystem<ENTITY, SERVICE, DTO> {
+public interface DictionaryService<ENTITY extends DictionaryObject, SERVICE extends DictionaryDao<ENTITY>, DTO extends DictionaryDto>
+    extends DefaultCRUDService<ENTITY, SERVICE, DTO> {
   /**
    * Находит элемент справочника по имени
    *

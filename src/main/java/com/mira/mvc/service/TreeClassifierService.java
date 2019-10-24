@@ -1,8 +1,8 @@
-package com.mira.mvc.system;
+package com.mira.mvc.service;
 
 import com.mira.jpa2.PageResponse;
+import com.mira.jpa2.dao.TreeClassifierDao;
 import com.mira.jpa2.data.TreeClassifier;
-import com.mira.jpa2.service.TreeClassifierService;
 import com.mira.mvc.dto.TreeClassifierDto;
 
 import java.util.List;
@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * Система для работы с классификаторами
  */
-public interface TreeClassifierCRUDSystem<ENTITY extends TreeClassifier<ENTITY>, SERVICE extends TreeClassifierService<ENTITY>, DTO extends TreeClassifierDto>
-    extends ClassifierCRUDSystem<ENTITY, SERVICE, DTO> {
+public interface TreeClassifierService<ENTITY extends TreeClassifier<ENTITY>, SERVICE extends TreeClassifierDao<ENTITY>, DTO extends TreeClassifierDto>
+    extends ClassifierService<ENTITY, SERVICE, DTO> {
   /**
    * Находит список дочерних элементов
    *

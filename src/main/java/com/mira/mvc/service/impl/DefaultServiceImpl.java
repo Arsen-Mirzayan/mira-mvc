@@ -1,32 +1,26 @@
-package com.mira.mvc.system.impl;
+package com.mira.mvc.service.impl;
 
+import com.mira.jpa2.dao.AbstractDao;
 import com.mira.mvc.dto.AbstractEntityDto;
-import com.mira.mvc.dto.EntityDto;
 import com.mira.jpa2.PageResponse;
 import com.mira.jpa2.data.AbstractPersistentObject;
-import com.mira.jpa2.data.DefaultPersistentObject;
-import com.mira.jpa2.service.AbstractService;
-import com.mira.mvc.system.DefaultSystem;
-import com.mira.mvc.system.DtoConversionService;
-import com.mira.mvc.system.ResourceNotFoundException;
+import com.mira.mvc.service.DefaultService;
+import com.mira.mvc.service.ResourceNotFoundException;
 import com.mira.utils.ClassUtils;
 import com.mira.utils.DateUtils;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
 import java.util.*;
 
 /**
  * Родительский класс для всех систем, содержит общие методы.
  */
-public abstract class DefaultSystemImpl<ENTITY extends AbstractPersistentObject<EntityIdClass>
-    , SERVICE extends AbstractService<ENTITY, EntityIdClass>
+public abstract class DefaultServiceImpl<ENTITY extends AbstractPersistentObject<EntityIdClass>
+    , SERVICE extends AbstractDao<ENTITY, EntityIdClass>
     , DTO extends AbstractEntityDto<DtoIdClass>
     , EntityIdClass
-    , DtoIdClass> implements DefaultSystem<ENTITY, SERVICE, DTO, EntityIdClass, DtoIdClass> {
+    , DtoIdClass> implements DefaultService<ENTITY, SERVICE, DTO, EntityIdClass, DtoIdClass> {
   protected final Set<String> ignoredProperties = new HashSet<>();
   protected final Date deletingDate = DateUtils.create(1700, 1, 1);
   protected final String deletingString = "-2147483648";
