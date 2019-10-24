@@ -1,4 +1,4 @@
-package com.mira.mvc.system;
+package com.mira.mvc.service;
 
 import com.mira.jpa2.PageResponse;
 import org.dozer.Mapper;

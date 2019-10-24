@@ -1,7 +1,4 @@
-package com.mira.mvc.system;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+package com.mira.mvc.service;
 
 /**
  * Сущность не найдена

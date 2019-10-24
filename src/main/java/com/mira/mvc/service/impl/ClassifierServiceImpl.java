@@ -1,13 +1,13 @@
-package com.mira.mvc.system.impl;
+package com.mira.mvc.service.impl;
 
 import com.mira.jpa2.Orders;
 import com.mira.jpa2.PageRequest;
 import com.mira.jpa2.PageResponse;
+import com.mira.jpa2.dao.ClassifierDao;
 import com.mira.jpa2.data.Classifier;
 import com.mira.jpa2.data.Classifier_;
-import com.mira.jpa2.service.ClassifierService;
 import com.mira.mvc.dto.ClassifierDto;
-import com.mira.mvc.system.ClassifierCRUDSystem;
+import com.mira.mvc.service.ClassifierService;
 
 /**
  * Родительский класс для систем работы с классификаторами
@@ -16,9 +16,9 @@ import com.mira.mvc.system.ClassifierCRUDSystem;
  * @param <SERVICE> класс сервиса для работы с сущностью
  * @param <DTO>     класс DTO
  */
-public abstract class ClassifierCRUDSystemImpl<ENTITY extends Classifier, SERVICE extends ClassifierService<ENTITY>, DTO extends ClassifierDto>
-    extends DictionaryCRUDSystemImpl<ENTITY, SERVICE, DTO>
-    implements ClassifierCRUDSystem<ENTITY, SERVICE, DTO> {
+public abstract class ClassifierServiceImpl<ENTITY extends Classifier, SERVICE extends ClassifierDao<ENTITY>, DTO extends ClassifierDto>
+    extends DictionaryServiceImpl<ENTITY, SERVICE, DTO>
+    implements ClassifierService<ENTITY, SERVICE, DTO> {
   @Override
   public DTO findByCode(String code) {
     return convert(getDalService().findByCode(code));
