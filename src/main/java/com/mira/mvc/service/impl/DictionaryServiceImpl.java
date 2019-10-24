@@ -8,7 +8,7 @@ import com.mira.mvc.service.DictionaryService;
 import java.util.List;
 
 public abstract class DictionaryServiceImpl<ENTITY extends DictionaryObject, SERVICE extends DictionaryDao<ENTITY>, DTO extends DictionaryDto>
-    extends DefaultCRUDServiceImpl<ENTITY, SERVICE, DTO>
+    extends DefaultServiceImpl<ENTITY, SERVICE, DTO>
     implements DictionaryService<ENTITY, SERVICE, DTO> {
 
   @Override

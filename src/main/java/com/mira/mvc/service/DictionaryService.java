@@ -14,7 +14,7 @@ import java.util.List;
  * @param <DTO>     транспортный класс
  */
 public interface DictionaryService<ENTITY extends DictionaryObject, SERVICE extends DictionaryDao<ENTITY>, DTO extends DictionaryDto>
-    extends DefaultCRUDService<ENTITY, SERVICE, DTO> {
+    extends DefaultService<ENTITY, SERVICE, DTO> {
   /**
    * Находит элемент справочника по имени
    *
