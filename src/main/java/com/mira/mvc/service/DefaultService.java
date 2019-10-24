@@ -1,9 +1,8 @@
-package com.mira.mvc.system;
+package com.mira.mvc.service;
 
+import com.mira.jpa2.dao.AbstractDao;
 import com.mira.jpa2.data.AbstractPersistentObject;
-import com.mira.jpa2.service.AbstractService;
 import com.mira.mvc.dto.AbstractEntityDto;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -12,9 +11,9 @@ import java.util.List;
  * качестве параметров и возвращают транспортные объекты. Реализация данного интерфейса инкапсулирует работы с хранимыми
  * сущностями и конвертацию последних в транспортные объекты.
  */
-public interface DefaultSystem<
+public interface DefaultService<
     ENTITY extends AbstractPersistentObject<EntityIdClass>
-    , SERVICE extends AbstractService<ENTITY, EntityIdClass>
+    , SERVICE extends AbstractDao<ENTITY, EntityIdClass>
     , DTO extends AbstractEntityDto<DtoIdClass>, EntityIdClass, DtoIdClass
     > {
   Class<ENTITY> getEntityClass();

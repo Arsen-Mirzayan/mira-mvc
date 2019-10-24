@@ -1,7 +1,8 @@
-package com.mira.mvc.system.impl;
+package com.mira.mvc.service.impl;
 
+import com.mira.jpa2.dao.TreeClassifierDao;
 import com.mira.mvc.dto.TreeClassifierDto;
-import com.mira.mvc.system.TreeClassifierCRUDSystem;
+import com.mira.mvc.service.TreeClassifierService;
 import com.mira.mvc.utils.EntityComparator;
 import com.mira.jpa2.Orders;
 import com.mira.jpa2.PageRequest;
@@ -9,7 +10,6 @@ import com.mira.jpa2.PageResponse;
 import com.mira.jpa2.data.Classifier_;
 import com.mira.jpa2.data.TreeClassifier;
 import com.mira.jpa2.data.TreeClassifier_;
-import com.mira.jpa2.service.TreeClassifierService;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,9 +17,9 @@ import java.util.List;
 /**
  * Система для работы с классификаторами
  */
-public abstract class TreeClassifierCRUDSystemImpl<ENTITY extends TreeClassifier<ENTITY>, SERVICE extends TreeClassifierService<ENTITY>, DTO extends TreeClassifierDto>
-    extends ClassifierCRUDSystemImpl<ENTITY, SERVICE, DTO>
-    implements TreeClassifierCRUDSystem<ENTITY, SERVICE, DTO> {
+public abstract class TreeClassifierServiceImpl<ENTITY extends TreeClassifier<ENTITY>, SERVICE extends TreeClassifierDao<ENTITY>, DTO extends TreeClassifierDto>
+    extends ClassifierServiceImpl<ENTITY, SERVICE, DTO>
+    implements TreeClassifierService<ENTITY, SERVICE, DTO> {
 
   @Override
   public List<DTO> findChildren(DTO parent) {

@@ -1,8 +1,8 @@
-package com.mira.mvc.system;
+package com.mira.mvc.service;
 
 import com.mira.jpa2.PageResponse;
+import com.mira.jpa2.dao.ClassifierDao;
 import com.mira.jpa2.data.Classifier;
-import com.mira.jpa2.service.ClassifierService;
 import com.mira.mvc.dto.ClassifierDto;
 
 /**
@@ -12,8 +12,8 @@ import com.mira.mvc.dto.ClassifierDto;
  * @param <SERVICE> класс сервиса для работы с сущностью
  * @param <DTO>     класс DTO
  */
-public interface ClassifierCRUDSystem<ENTITY extends Classifier, SERVICE extends ClassifierService<ENTITY>, DTO extends ClassifierDto>
-    extends DictionaryCRUDSystem<ENTITY, SERVICE, DTO> {
+public interface ClassifierService<ENTITY extends Classifier, SERVICE extends ClassifierDao<ENTITY>, DTO extends ClassifierDto>
+    extends DictionaryService<ENTITY, SERVICE, DTO> {
   /**
    * Находит элемент классификатора по коду
    *
