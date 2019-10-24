@@ -22,13 +22,11 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
     , DtoIdClass>
     implements AbstractService<ENTITY, SERVICE, DTO, EntityIdClass, DtoIdClass> {
   protected final Set<String> ignoredProperties = new HashSet<>();
-  protected final Date deletingDate = DateUtils.create(1700, 1, 1);
-  protected final String deletingString = "-2147483648";
-  protected Mapper mapper;
+  protected final Mapper mapper;
 
   protected boolean isRestful = false;
 
-  private SERVICE dalService;
+  protected final SERVICE dalService;
 
   {
     ignoredProperties.add("id");
