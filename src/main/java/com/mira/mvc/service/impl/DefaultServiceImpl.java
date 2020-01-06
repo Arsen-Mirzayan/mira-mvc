@@ -4,6 +4,7 @@ import com.mira.jpa2.dao.DefaultDao;
 import com.mira.jpa2.data.DefaultPersistentObject;
 import com.mira.mvc.dto.EntityDto;
 import com.mira.mvc.service.DefaultService;
+import com.mira.mvc.validation.ValidationService;
 import org.dozer.Mapper;
 
 /**
@@ -17,8 +18,8 @@ public abstract class DefaultServiceImpl<
 
     implements DefaultService<ENTITY, SERVICE, DTO> {
 
-  public DefaultServiceImpl(Mapper mapper, SERVICE dalService) {
-    super(mapper, dalService);
+  public DefaultServiceImpl(Mapper mapper, ValidationService validationService, SERVICE dalService) {
+    super(mapper, validationService, dalService);
   }
 
   @Override

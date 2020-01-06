@@ -8,6 +8,7 @@ import com.mira.jpa2.data.Classifier;
 import com.mira.jpa2.data.Classifier_;
 import com.mira.mvc.dto.ClassifierDto;
 import com.mira.mvc.service.ClassifierService;
+import com.mira.mvc.validation.ValidationService;
 import org.dozer.Mapper;
 
 /**
@@ -21,8 +22,8 @@ public abstract class ClassifierServiceImpl<ENTITY extends Classifier, SERVICE e
     extends DictionaryServiceImpl<ENTITY, SERVICE, DTO>
     implements ClassifierService<ENTITY, SERVICE, DTO> {
 
-  public ClassifierServiceImpl(Mapper mapper, SERVICE dalService) {
-    super(mapper, dalService);
+  public ClassifierServiceImpl(Mapper mapper, ValidationService validationService, SERVICE dalService) {
+    super(mapper, validationService, dalService);
   }
 
   @Override

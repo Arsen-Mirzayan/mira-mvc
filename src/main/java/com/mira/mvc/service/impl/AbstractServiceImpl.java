@@ -1,16 +1,19 @@
 package com.mira.mvc.service.impl;
 
-import com.mira.jpa2.dao.AbstractDao;
-import com.mira.mvc.dto.AbstractEntityDto;
 import com.mira.jpa2.PageResponse;
+import com.mira.jpa2.dao.AbstractDao;
 import com.mira.jpa2.data.AbstractPersistentObject;
+import com.mira.mvc.dto.AbstractEntityDto;
 import com.mira.mvc.service.AbstractService;
 import com.mira.mvc.service.ResourceNotFoundException;
+import com.mira.mvc.validation.Errors;
+import com.mira.mvc.validation.ValidationException;
+import com.mira.mvc.validation.ValidationService;
 import com.mira.utils.ClassUtils;
-import com.mira.utils.DateUtils;
 import org.dozer.Mapper;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * Родительский класс для всех систем, содержит общие методы.
@@ -23,7 +26,7 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
     implements AbstractService<ENTITY, SERVICE, DTO, EntityIdClass, DtoIdClass> {
   protected final Set<String> ignoredProperties = new HashSet<>();
   protected final Mapper mapper;
-
+  protected final ValidationService validationService;
   protected boolean isRestful = false;
 
   protected final SERVICE dalService;
@@ -32,8 +35,9 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
     ignoredProperties.add("id");
   }
 
-  public AbstractServiceImpl(Mapper mapper, SERVICE dalService) {
+  public AbstractServiceImpl(Mapper mapper, ValidationService validationService, SERVICE dalService) {
     this.mapper = mapper;
+    this.validationService = validationService;
     this.dalService = dalService;
   }
 
@@ -146,6 +150,19 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
   }
 
   protected abstract EntityIdClass extractId(DTO dto);
+
+  /**
+   * Валидатор, передаваемый в параметре {@code validator}, выполняет проверку, заполняя переданный объект {@link Errors}.
+   * Если по итогу список ошибок не пустой, то метод данный объект финализирует и выбрасывает {@link com.mira.mvc.validation.ValidationException}
+   *
+   * @param validator валидатор
+   * @throws ValidationException если валидатор нашёл ошибки
+   */
+  protected void validate(Consumer<Errors> validator) throws ValidationException {
+    Errors errors = new Errors();
+    validator.accept(errors);
+    validationService.throwIfNotEmpty(errors);
+  }
 
   @Override
   public DTO save(DTO object) {

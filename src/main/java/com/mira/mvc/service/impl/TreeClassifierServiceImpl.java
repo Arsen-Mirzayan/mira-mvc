@@ -10,6 +10,7 @@ import com.mira.jpa2.PageResponse;
 import com.mira.jpa2.data.Classifier_;
 import com.mira.jpa2.data.TreeClassifier;
 import com.mira.jpa2.data.TreeClassifier_;
+import com.mira.mvc.validation.ValidationService;
 import org.dozer.Mapper;
 
 import java.util.Collections;
@@ -22,8 +23,8 @@ public abstract class TreeClassifierServiceImpl<ENTITY extends TreeClassifier<EN
     extends ClassifierServiceImpl<ENTITY, SERVICE, DTO>
     implements TreeClassifierService<ENTITY, SERVICE, DTO> {
 
-  public TreeClassifierServiceImpl(Mapper mapper, SERVICE dalService) {
-    super(mapper, dalService);
+  public TreeClassifierServiceImpl(Mapper mapper, ValidationService validationService, SERVICE dalService) {
+    super(mapper, validationService, dalService);
   }
 
   @Override
