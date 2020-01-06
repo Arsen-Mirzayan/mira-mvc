@@ -12,8 +12,11 @@ import com.mira.mvc.validation.ValidationService;
 import com.mira.utils.ClassUtils;
 import org.dozer.Mapper;
 
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
 
 /**
  * Родительский класс для всех систем, содержит общие методы.
@@ -134,8 +137,22 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
   }
 
   @Override
-  public void delete(DTO dto) {
-    getDalService().delete(Collections.singletonList(toEntity(dto)));
+  public void delete(DTO object) {
+    Errors errors = new Errors();
+    validateBeforeDelete(object, errors);
+    validationService.throwIfNotEmpty(errors);
+    getDalService().delete(toEntity(object));
+  }
+
+  /**
+   * Проверяет объект перед удалением. Ошибки записываются в параметр {@code errors}. Данный метод вызывается в методе
+   * {@link #delete(AbstractEntityDto)} (AbstractEntityDto)} перед собственно удалением объекта.
+   *
+   * @param object удаляемый объект
+   * @param errors список ошибок
+   */
+  private void validateBeforeDelete(DTO object, Errors errors) {
+
   }
 
 
@@ -158,17 +175,30 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
    * @param validator валидатор
    * @throws ValidationException если валидатор нашёл ошибки
    */
-  protected void validate(Consumer<Errors> validator) throws ValidationException {
+  protected void validate(Function<Errors, Void> validator) throws ValidationException {
     Errors errors = new Errors();
-    validator.accept(errors);
+    validator.apply(errors);
     validationService.throwIfNotEmpty(errors);
   }
 
   @Override
   public DTO save(DTO object) {
+    Errors errors = new Errors();
+    validateBeforeSave(object, errors);
+    validationService.throwIfNotEmpty(errors);
     ENTITY entity = convert(object);
     getDalService().save(entity);
     return convert(entity);
+  }
+
+  /**
+   * Проверяет объект перед сохранением. Ошибки записываются в параметр {@code errors}. Данный метод вызывается в методе
+   * {@link #save(AbstractEntityDto)} перед собственно сохранением объекта.
+   *
+   * @param object сохраняемый объект
+   * @param errors список ошибок
+   */
+  protected void validateBeforeSave(DTO object, Errors errors) {
   }
 
 }
