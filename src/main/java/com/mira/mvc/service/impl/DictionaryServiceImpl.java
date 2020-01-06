@@ -4,6 +4,7 @@ import com.mira.jpa2.dao.DictionaryDao;
 import com.mira.jpa2.data.DictionaryObject;
 import com.mira.mvc.dto.DictionaryDto;
 import com.mira.mvc.service.DictionaryService;
+import com.mira.mvc.validation.ValidationService;
 import org.dozer.Mapper;
 
 import java.util.List;
@@ -12,8 +13,8 @@ public abstract class DictionaryServiceImpl<ENTITY extends DictionaryObject, SER
     extends DefaultServiceImpl<ENTITY, SERVICE, DTO>
     implements DictionaryService<ENTITY, SERVICE, DTO> {
 
-  public DictionaryServiceImpl(Mapper mapper, SERVICE dalService) {
-    super(mapper, dalService);
+  public DictionaryServiceImpl(Mapper mapper, ValidationService validationService, SERVICE dalService) {
+    super(mapper, validationService, dalService);
   }
 
   @Override
