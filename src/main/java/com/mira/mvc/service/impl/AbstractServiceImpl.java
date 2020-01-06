@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 /**
  * Родительский класс для всех систем, содержит общие методы.
@@ -138,9 +138,7 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
 
   @Override
   public void delete(DTO object) {
-    Errors errors = new Errors();
-    validateBeforeDelete(object, errors);
-    validationService.throwIfNotEmpty(errors);
+    validate(errors -> validateBeforeDelete(object, errors));
     getDalService().delete(toEntity(object));
   }
 
@@ -175,17 +173,15 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
    * @param validator валидатор
    * @throws ValidationException если валидатор нашёл ошибки
    */
-  protected void validate(Function<Errors, Void> validator) throws ValidationException {
+  protected void validate(Consumer<Errors> validator) throws ValidationException {
     Errors errors = new Errors();
-    validator.apply(errors);
+    validator.accept(errors);
     validationService.throwIfNotEmpty(errors);
   }
 
   @Override
   public DTO save(DTO object) {
-    Errors errors = new Errors();
-    validateBeforeSave(object, errors);
-    validationService.throwIfNotEmpty(errors);
+    validate(errors -> validateBeforeSave(object, errors));
     ENTITY entity = convert(object);
     getDalService().save(entity);
     return convert(entity);
