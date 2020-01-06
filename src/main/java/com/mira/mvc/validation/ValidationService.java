@@ -105,7 +105,7 @@ public class ValidationService {
    * @throws ValidationException если список ошибок не пустой
    */
   public void throwIfNotEmpty(Errors errors) throws ValidationException {
-    if (errors != null && errors.isEmpty()) {
+    if (errors != null && !errors.isEmpty()) {
       errors.getErrors().forEach(this::fillMessage);
       errors.makeCache();
       throw new ValidationException(errors);
