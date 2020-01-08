@@ -2,18 +2,27 @@ package com.mira.mvc.validation;
 
 import com.mira.utils.StringUtils;
 
-import java.util.Map;
+import javax.validation.ConstraintViolation;
+import javax.validation.Path;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Сервис для заполнения текстов ошибок
  */
 public class ValidationService {
 
-  private final ErrorMessageHolder errorMessageHolder;
+  private final MessageInterpolator messageInterpolator;
+  private final Validator validator;
 
-  public ValidationService(ErrorMessageHolder errorMessageHolder) {
-    this.errorMessageHolder = errorMessageHolder;
+  public ValidationService(MessageInterpolator messageInterpolator) {
+    this.messageInterpolator = messageInterpolator;
+    validator = Validation.byDefaultProvider().configure().messageInterpolator(messageInterpolator).buildValidatorFactory().getValidator();
   }
 
   /**
@@ -24,12 +33,7 @@ public class ValidationService {
    */
   private Error fillMessage(Error error) {
     if (StringUtils.isNotEmpty(error.getCode())) {
-      String message = errorMessageHolder.getMessageByCode(error.getCode());
-      if (StringUtils.isNotEmpty(message) && error.getArguments() != null) {
-        for (Map.Entry<String, String> entry : error.getArguments().entrySet()) {
-          message = message.replace("{" + entry.getKey() + "}", entry.getValue());
-        }
-      }
+      String message = messageInterpolator.interpolate(error.getCode(), error.getArguments());
       error.setMessage(message);
     }
     return error;
@@ -68,6 +72,7 @@ public class ValidationService {
     }
     if (condition.get()) {
       errors.getErrors().add(fillMessage(new Error(Placement.FIELD, field, messageCode)));
+      errors.makeCache();
     }
     return errors;
   }
@@ -106,10 +111,21 @@ public class ValidationService {
    */
   public void throwIfNotEmpty(Errors errors) throws ValidationException {
     if (errors != null && !errors.isEmpty()) {
-      errors.getErrors().forEach(this::fillMessage);
-      errors.makeCache();
       throw new ValidationException(errors);
     }
+  }
+
+  public Errors validate(Object bean) {
+    Set<ConstraintViolation<Object>> violations = validator.validate(bean);
+    List<Error> errors = violations.stream()
+        .map(violation ->
+            new Error(Placement.FIELD
+                , StreamSupport.stream(violation.getPropertyPath().spliterator(), false).map(Path.Node::getName).collect(Collectors.joining("."))
+                , violation.getMessageTemplate()
+            ))
+        .map(this::fillMessage)
+        .collect(Collectors.toList());
+    return new Errors(errors);
   }
 
 }
