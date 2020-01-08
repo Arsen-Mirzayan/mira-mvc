@@ -27,8 +27,10 @@ public class Errors {
 
   /**
    * Заполняет кеш для быстрого поиска
+   *
+   * @return себя же для последовательного вызова
    */
-  public void makeCache() {
+  public Errors makeCache() {
     fieldErrors = new HashMap<>();
     global = errors.stream().filter(error -> Placement.GLOBAL.equals(error.getPlacement())).collect(Collectors.toList());
     alerts = errors.stream().filter(error -> Placement.ALERT.equals(error.getPlacement())).collect(Collectors.toList());
@@ -36,6 +38,7 @@ public class Errors {
         Error::getField
         , o -> errors.stream().filter(error -> o.getField().equals(error.getField())).collect(Collectors.toList())
     ));
+    return this;
   }
 
   /**

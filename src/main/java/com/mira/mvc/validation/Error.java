@@ -17,7 +17,7 @@ public class Error {
   private String field;
   private String code;
   private String message;
-  private Map<String, String> arguments = new HashMap<>();
+  private Map<String, Object> arguments = new HashMap<>();
 
   public Error() {
   }
@@ -26,6 +26,13 @@ public class Error {
     this.placement = placement;
     this.field = field;
     this.code = code;
+  }
+
+  public Error(Placement placement, String field, String code, Map<String, Object> arguments) {
+    this.placement = placement;
+    this.field = field;
+    this.code = code;
+    this.arguments = arguments;
   }
 
   public Placement getPlacement() {
@@ -60,11 +67,11 @@ public class Error {
     this.message = message;
   }
 
-  public Map<String, String> getArguments() {
+  public Map<String, Object> getArguments() {
     return arguments;
   }
 
-  public void setArguments(Map<String, String> arguments) {
+  public void setArguments(Map<String, Object> arguments) {
     this.arguments = arguments;
   }
 }
