@@ -195,6 +195,7 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
    * @param errors список ошибок
    */
   protected void validateBeforeSave(DTO object, Errors errors) {
+    validationService.validate(object, errors);
   }
 
 }

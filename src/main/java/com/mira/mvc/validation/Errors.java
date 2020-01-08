@@ -1,9 +1,6 @@
 package com.mira.mvc.validation;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -11,26 +8,25 @@ import java.util.stream.Collectors;
  * по полю, группировка сообщений и т.д.
  */
 public class Errors {
-  private List<Error> errors;
-  private List<Error> global;
-  private List<Error> alerts;
-  private Map<String, List<Error>> fieldErrors;
+  private List<Error> errors = new LinkedList<>();
+  private List<Error> global = new LinkedList<>();
+  private List<Error> alerts = new LinkedList<>();
+  private Map<String, List<Error>> fieldErrors = new HashMap<>();
 
   public Errors() {
-    errors = new LinkedList<>();
+
   }
 
   public Errors(List<Error> errors) {
-    this.errors = errors;
-    makeCache();
+    errors.forEach(this::add);
   }
 
   /**
-   * Заполняет кеш для быстрого поиска
+   * Закрывает коллекцию ошибок для добавления новых элементов. Сортирует ошибки по спискам. После вызова данного метода
    *
    * @return себя же для последовательного вызова
    */
-  public Errors makeCache() {
+  public Errors close() {
     fieldErrors = new HashMap<>();
     global = errors.stream().filter(error -> Placement.GLOBAL.equals(error.getPlacement())).collect(Collectors.toList());
     alerts = errors.stream().filter(error -> Placement.ALERT.equals(error.getPlacement())).collect(Collectors.toList());
@@ -52,21 +48,44 @@ public class Errors {
    * @return список глобальных ошибок, ошибок с типом {@link Placement#GLOBAL}
    */
   public List<Error> getGlobal() {
-    return global;
+    return Collections.unmodifiableList(global);
   }
 
   /**
    * @return список предупреждений, ошибок с типом {@link Placement#ALERT}
    */
   public List<Error> getAlerts() {
-    return alerts;
+    return Collections.unmodifiableList(alerts);
   }
 
   /**
    * @return список всех ошибок
    */
   public List<Error> getErrors() {
-    return errors;
+    return Collections.unmodifiableList(errors);
+  }
+
+  /**
+   * Добавляет новую ошибку в списки. После добавления объект ошибки нельзя изменять.
+   *
+   * @param error ошибка
+   * @return себя же для последовательного вызова
+   */
+  public Errors add(Error error) {
+    errors.add(error);
+    switch (error.getPlacement()) {
+
+      case GLOBAL:
+        global.add(error);
+        break;
+      case FIELD:
+        fieldErrors.computeIfAbsent(error.getField(), k -> new LinkedList<>()).add(error);
+        break;
+      case ALERT:
+        alerts.add(error);
+        break;
+    }
+    return this;
   }
 
   /**
