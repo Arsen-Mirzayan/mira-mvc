@@ -1,7 +1,5 @@
 package com.mira.mvc.validation;
 
-import com.mira.utils.StringUtils;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Path;
 import javax.validation.Validation;
@@ -9,6 +7,9 @@ import javax.validation.Validator;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * Проверяет объекты на основе {@link Validator}. Полученный результат проверки конвертируется в {@link Errors}.
@@ -37,7 +38,7 @@ public class ValidationService {
   public void throwIfNotEmpty(Errors errors) throws ValidationException {
     if (errors != null && !errors.isEmpty()) {
       errors.getErrors().forEach(error -> {
-        if (StringUtils.isNotEmpty(error.getCode())) {
+        if (isNotEmpty(error.getCode()) && isEmpty(error.getMessage())) {
           String message = messageInterpolator.interpolate(error.getCode(), error.getArguments());
           error.setMessage(message);
         }
