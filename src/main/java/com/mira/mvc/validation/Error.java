@@ -40,6 +40,14 @@ public class Error {
     this.arguments = arguments;
   }
 
+  public Error(Placement placement, String field, String code, Map<String, Object> arguments, String message) {
+    this.placement = placement;
+    this.field = field;
+    this.code = code;
+    this.message = message;
+    this.arguments = arguments;
+  }
+
   public Placement getPlacement() {
     return placement;
   }
