@@ -22,6 +22,11 @@ public class Error {
   public Error() {
   }
 
+  public Error(Placement placement, String code) {
+    this.placement = placement;
+    this.code = code;
+  }
+
   public Error(Placement placement, String field, String code) {
     this.placement = placement;
     this.field = field;
