@@ -4,6 +4,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Path;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -39,7 +40,7 @@ public class ValidationService {
     if (errors != null && !errors.isEmpty()) {
       errors.getErrors().forEach(error -> {
         if (isNotEmpty(error.getCode()) && isEmpty(error.getMessage())) {
-          String message = messageInterpolator.interpolate(error.getCode(), error.getArguments());
+          String message = messageInterpolator.interpolate(error.getCode(), error.getArguments() != null ? error.getArguments() : Collections.emptyMap());
           error.setMessage(message);
         }
       });

@@ -13,8 +13,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 public class ValidationServiceTest {
@@ -50,6 +49,35 @@ public class ValidationServiceTest {
 
     errors = service.validate(new Outer("a", "", "b", DateUtils.addDays(new Date(), -1), new Inner(), "1@огрн.онлайн", 15));
     assertTrue(errors.isEmpty());
+  }
+
+  @Test(expected = ValidationException.class)
+  public void throwIfNotEmpty() {
+    Errors errors = new Errors();
+    errors.reject(new Error(Placement.FIELD, "field", "fieldNotInterpolated"));
+    errors.reject(new Error(Placement.GLOBAL, "globalNotInterpolated"));
+    errors.reject(new Error(Placement.ALERT, "alertNotInterpolated"));
+
+    errors.reject(new Error(Placement.FIELD, "field", "fieldInterpolated", null, "Interpolated message"));
+    errors.reject(new Error(Placement.GLOBAL, null, "globalInterpolated", null, "Interpolated message"));
+    errors.reject(new Error(Placement.ALERT, null, "alertInterpolated", null, "Interpolated message"));
+
+    try {
+      service.throwIfNotEmpty(errors);
+    } catch (ValidationException e) {
+      verify(messageInterpolator, times(1)).interpolate(eq("fieldNotInterpolated"), anyMap());
+      verify(messageInterpolator, times(1)).interpolate(eq("globalNotInterpolated"), anyMap());
+      verify(messageInterpolator, times(1)).interpolate(eq("alertNotInterpolated"), anyMap());
+      verifyNoMoreInteractions(messageInterpolator);
+      throw e;
+    }
+  }
+
+  @Test
+  public void throwIfNotEmpty_Empty() {
+    Errors errors = new Errors();
+    service.throwIfNotEmpty(errors);
+    verifyNoInteractions(messageInterpolator);
   }
 
   /**
