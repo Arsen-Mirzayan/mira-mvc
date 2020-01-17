@@ -1,6 +1,7 @@
 package com.mira.mvc.validation;
 
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -18,23 +19,7 @@ public class Errors {
   }
 
   public Errors(List<Error> errors) {
-    errors.forEach(this::add);
-  }
-
-  /**
-   * Закрывает коллекцию ошибок для добавления новых элементов. Сортирует ошибки по спискам. После вызова данного метода
-   *
-   * @return себя же для последовательного вызова
-   */
-  public Errors close() {
-    fieldErrors = new HashMap<>();
-    global = errors.stream().filter(error -> Placement.GLOBAL.equals(error.getPlacement())).collect(Collectors.toList());
-    alerts = errors.stream().filter(error -> Placement.ALERT.equals(error.getPlacement())).collect(Collectors.toList());
-    fieldErrors = errors.stream().collect(Collectors.toMap(
-        Error::getField
-        , o -> errors.stream().filter(error -> o.getField().equals(error.getField())).collect(Collectors.toList())
-    ));
-    return this;
+    errors.forEach(this::reject);
   }
 
   /**
@@ -71,7 +56,7 @@ public class Errors {
    * @param error ошибка
    * @return себя же для последовательного вызова
    */
-  public Errors add(Error error) {
+  public Errors reject(Error error) {
     errors.add(error);
     switch (error.getPlacement()) {
 
@@ -86,6 +71,54 @@ public class Errors {
         break;
     }
     return this;
+  }
+
+  /**
+   * Добавляет ошибку в список при условии выполнения указанного условия
+   *
+   * @param condition условие добавления ошибки
+   * @param error     ошибка
+   * @return себя же для последовательного вызова
+   */
+  public Errors rejectIf(Supplier<Boolean> condition, Error error) {
+    if (condition.get()) {
+      reject(error);
+    }
+    return this;
+  }
+
+  /**
+   * Добавляет в список ошибку с типом {@link Placement#GLOBAL} при условии выполнения указанного условия
+   *
+   * @param condition   условие добавления ошибки
+   * @param messageCode код сообщения
+   * @return себя же для последовательного вызова
+   */
+  public Errors rejectIf(Supplier<Boolean> condition, String messageCode) {
+    return rejectIf(condition, new Error(Placement.GLOBAL, messageCode));
+  }
+
+  /**
+   * Добавляет в список ошибку с типом {@link Placement#ALERT} при условии выполнения указанного условия
+   *
+   * @param condition   условие добавления ошибки
+   * @param messageCode код сообщения
+   * @return себя же для последовательного вызова
+   */
+  public Errors alertId(Supplier<Boolean> condition, String messageCode) {
+    return rejectIf(condition, new Error(Placement.ALERT, messageCode));
+  }
+
+  /**
+   * Добавляет в список ошибку с типом {@link Placement#FIELD} при условии выполнения указанного условия
+   *
+   * @param condition   условие добавления ошибки
+   * @param field       поле, в котором произошла ошибка
+   * @param messageCode код сообщения
+   * @return себя же для последовательного вызова
+   */
+  public Errors rejectIf(Supplier<Boolean> condition, String field, String messageCode) {
+    return rejectIf(condition, new Error(Placement.FIELD, field, messageCode));
   }
 
   /**
