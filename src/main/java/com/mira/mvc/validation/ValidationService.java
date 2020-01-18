@@ -39,9 +39,12 @@ public class ValidationService {
   public void throwIfNotEmpty(Errors errors) throws ValidationException {
     if (errors != null && !errors.isEmpty()) {
       errors.getErrors().forEach(error -> {
-        if (isNotEmpty(error.getCode()) && isEmpty(error.getMessage())) {
-          String message = messageInterpolator.interpolate(error.getCode(), error.getArguments() != null ? error.getArguments() : Collections.emptyMap());
-          error.setMessage(message);
+        if (isNotEmpty(error.getCode())) {
+          error.setCode(messageInterpolator.getCanonicalKey(error.getCode()));
+          if (isEmpty(error.getMessage())) {
+            String message = messageInterpolator.interpolate(error.getCode(), error.getArguments() != null ? error.getArguments() : Collections.emptyMap());
+            error.setMessage(message);
+          }
         }
       });
       throw new ValidationException(errors);

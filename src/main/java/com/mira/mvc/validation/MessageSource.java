@@ -1,7 +1,7 @@
 package com.mira.mvc.validation;
 
 /**
- * Получеет сообщение по ключу
+ * Получает сообщение по ключу.
  */
 public interface MessageSource {
   /**
