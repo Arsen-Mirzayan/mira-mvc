@@ -39,6 +39,7 @@ public class VelocityMessageInterpolatorTest {
     when(messageSource.getMessage(eq("common.message"))).thenReturn("Привет $name.");
     when(messageSource.getMessage(eq("greater.or.equals"))).thenReturn("значение должно быть больше #if($include)или равно #end$value.");
     when(messageSource.getMessage(eq("Пока $name"))).thenReturn(null);
+    when(messageSource.getMessage(eq("password"))).thenReturn("Пароль должен быть не короче $minLength символов#if(#$hasDigit), содержать цифры#end#if($hasLower), содержать срочные строчные буквы#end#if($hasUpper), содержать прописные буквы#end#if($hasSpecial), содержать символы из \"$specialSymbols\"#end.");
 
     //Настраиваем контекст ошибки
     ConstraintDescriptor constraintDescriptor = mock(ConstraintDescriptor.class);
@@ -64,6 +65,26 @@ public class VelocityMessageInterpolatorTest {
     contextValues.put("include", true);
     contextValues.put("value", 10);
     assertEquals("значение должно быть больше или равно 10.", interpolator.interpolate("greater.or.equals", context));
+
+    //Проверяем сложный шаблон
+    contextValues.clear();
+    contextValues.put("minLength", 8);
+    contextValues.put("hasDigit", true);
+    contextValues.put("hasLower", true);
+    contextValues.put("hasUpper", true);
+    contextValues.put("hasSpecial", true);
+    contextValues.put("specialSymbols", "!@#$%^&*()?");
+    assertEquals("Пароль должен быть не короче 8 символов, содержать цифры, содержать срочные строчные буквы, содержать прописные буквы, содержать символы из \"!@#$%^&*()?\"."
+        , interpolator.interpolate("password", context));
+    contextValues.put("specialSymbols", "!@");
+    assertEquals("Пароль должен быть не короче 8 символов, содержать цифры, содержать срочные строчные буквы, содержать прописные буквы, содержать символы из \"!@\"."
+        , interpolator.interpolate("password", context));
+    contextValues.put("hasSpecial", false);
+    assertEquals("Пароль должен быть не короче 8 символов, содержать цифры, содержать срочные строчные буквы, содержать прописные буквы."
+        , interpolator.interpolate("password", context));
+    contextValues.put("hasDigit", false);
+    assertEquals("Пароль должен быть не короче 8 символов, содержать срочные строчные буквы, содержать прописные буквы."
+        , interpolator.interpolate("password", context));
 
     //Меняем контекст
     contextValues.clear();
