@@ -10,6 +10,7 @@ import org.apache.velocity.runtime.resource.util.StringResource;
 import org.apache.velocity.runtime.resource.util.StringResourceRepository;
 
 import java.io.StringWriter;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ import java.util.Map;
 public class VelocityMessageInterpolator implements MessageInterpolator {
   private static final String ENCODING = "UTF-8";
   private final VelocityEngine engine;
+  private final Map<String, String> canonicalKeys;
 
   /**
    * Создаёт новый экземпляр интерполятора. Инициализирует {@link VelocityEngine}, в который шаблоны загружаются из
@@ -35,6 +37,17 @@ public class VelocityMessageInterpolator implements MessageInterpolator {
    * @param messageSource источник шаблонов сообщений
    */
   public VelocityMessageInterpolator(MessageSource messageSource) {
+    this(messageSource, Collections.emptyMap());
+  }
+
+  /**
+   * Создаёт новый экземпляр интерполятора. Инициализирует {@link VelocityEngine}, в который шаблоны загружаются из
+   * {@link MessageSource}.
+   *
+   * @param messageSource источник шаблонов сообщений
+   */
+  public VelocityMessageInterpolator(MessageSource messageSource, Map<String, String> canonicalKeys) {
+    this.canonicalKeys = canonicalKeys != null ? canonicalKeys : Collections.emptyMap();
     this.engine = new VelocityEngine();
     engine.setProperty(Velocity.RESOURCE_LOADER, "string");
     engine.addProperty("string.resource.loader.class", StringResourceLoader.class.getName());
@@ -68,6 +81,11 @@ public class VelocityMessageInterpolator implements MessageInterpolator {
       engine.evaluate(velocityContext, writer, messageTemplate, messageTemplate);
     }
     return writer.toString();
+  }
+
+  @Override
+  public String getCanonicalKey(String key) {
+    return canonicalKeys.getOrDefault(key, key);
   }
 
   /**
