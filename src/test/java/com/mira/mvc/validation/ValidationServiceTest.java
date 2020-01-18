@@ -62,12 +62,22 @@ public class ValidationServiceTest {
     errors.reject(new Error(Placement.GLOBAL, null, "globalInterpolated", null, "Interpolated message"));
     errors.reject(new Error(Placement.ALERT, null, "alertInterpolated", null, "Interpolated message"));
 
+    when(messageInterpolator.getCanonicalKey(anyString())).thenAnswer(invocation -> {
+      String argument = invocation.getArgument(0);
+      return argument.equals("fieldNotInterpolated") ? "fieldNotInterpolatedCanonical" : argument;
+    });
+
     try {
       service.throwIfNotEmpty(errors);
     } catch (ValidationException e) {
-      verify(messageInterpolator, times(1)).interpolate(eq("fieldNotInterpolated"), anyMap());
+      //Проверяем, что вызов интерполяции был именно для каноничной версии
+      verify(messageInterpolator, times(0)).interpolate(eq("fieldNotInterpolated"), anyMap());
+      verify(messageInterpolator, times(1)).interpolate(eq("fieldNotInterpolatedCanonical"), anyMap());
+      //проверяем остальные вывозы
       verify(messageInterpolator, times(1)).interpolate(eq("globalNotInterpolated"), anyMap());
       verify(messageInterpolator, times(1)).interpolate(eq("alertNotInterpolated"), anyMap());
+      verify(messageInterpolator, times(1)).getCanonicalKey(eq("fieldNotInterpolated"));
+      verify(messageInterpolator, times(6)).getCanonicalKey(anyString());
       verifyNoMoreInteractions(messageInterpolator);
       throw e;
     }
