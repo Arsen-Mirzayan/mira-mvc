@@ -1,7 +1,6 @@
 package com.mira.mvc.validation;
 
 import com.mira.mvc.validation.impl.VelocityMessageInterpolator;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,6 +9,7 @@ import javax.validation.metadata.ConstraintDescriptor;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -17,11 +17,20 @@ import static org.mockito.Mockito.when;
 public class VelocityMessageInterpolatorTest {
   private VelocityMessageInterpolator interpolator;
   private MessageSource messageSource;
+  private Map<String, String> canonicalKeys;
 
   @Before
   public void setUp() throws Exception {
     messageSource = mock(MessageSource.class);
-    interpolator = new VelocityMessageInterpolator(messageSource);
+    canonicalKeys = new HashMap<>();
+    interpolator = new VelocityMessageInterpolator(messageSource, canonicalKeys);
+  }
+
+  @Test
+  public void canonical() {
+    canonicalKeys.put("notCanonical", "canonical");
+    assertEquals("canonical", interpolator.getCanonicalKey("notCanonical"));
+    assertEquals("some other key", interpolator.getCanonicalKey("some other key"));
   }
 
   @Test
@@ -41,25 +50,25 @@ public class VelocityMessageInterpolatorTest {
 
     //Проверяем простой шаблон
     contextValues.put("name", "Пётр");
-    Assert.assertEquals("Привет Пётр.", interpolator.interpolate("common.message", context));
+    assertEquals("Привет Пётр.", interpolator.interpolate("common.message", context));
 
     //Меняем контекст
     contextValues.put("name", "Иван");
-    Assert.assertEquals("Привет Иван.", interpolator.interpolate("common.message", context));
+    assertEquals("Привет Иван.", interpolator.interpolate("common.message", context));
 
     //Проверяем отсутствующий шаблон
-    Assert.assertEquals("Пока Иван", interpolator.interpolate("Пока $name", context));
+    assertEquals("Пока Иван", interpolator.interpolate("Пока $name", context));
 
     //Проверяем шаблон с if
     contextValues.clear();
     contextValues.put("include", true);
     contextValues.put("value", 10);
-    Assert.assertEquals("значение должно быть больше или равно 10.", interpolator.interpolate("greater.or.equals", context));
+    assertEquals("значение должно быть больше или равно 10.", interpolator.interpolate("greater.or.equals", context));
 
     //Меняем контекст
     contextValues.clear();
     contextValues.put("include", false);
     contextValues.put("value", 10);
-    Assert.assertEquals("значение должно быть больше 10.", interpolator.interpolate("greater.or.equals", context));
+    assertEquals("значение должно быть больше 10.", interpolator.interpolate("greater.or.equals", context));
   }
 }
