@@ -45,6 +45,7 @@ public class VelocityMessageInterpolator implements MessageInterpolator {
    * {@link MessageSource}.
    *
    * @param messageSource источник шаблонов сообщений
+   * @param canonicalKeys карта для синонимов для ключей
    */
   public VelocityMessageInterpolator(MessageSource messageSource, Map<String, String> canonicalKeys) {
     this.canonicalKeys = canonicalKeys != null ? canonicalKeys : Collections.emptyMap();
