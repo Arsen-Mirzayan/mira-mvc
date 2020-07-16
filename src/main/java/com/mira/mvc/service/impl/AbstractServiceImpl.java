@@ -73,6 +73,7 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
    *
    * @param source    исходный объект
    * @param destClass класс, к которому нужно привести объект
+   * @param <T> класс
    * @return объект указанного класса
    */
   protected <T> T convert(Object source, Class<T> destClass) {
