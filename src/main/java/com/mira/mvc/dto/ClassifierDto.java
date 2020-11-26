@@ -22,6 +22,6 @@ public class ClassifierDto extends DictionaryDto {
   }
 
   public String getFullName() {
-    return code != null && name != null ? String.format("%s %s", code, name) : null;
+    return code != null && name != null ? String.format("%s - %s", code, name) : null;
   }
 }
