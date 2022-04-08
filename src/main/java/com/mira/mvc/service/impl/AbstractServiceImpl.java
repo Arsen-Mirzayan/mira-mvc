@@ -11,6 +11,7 @@ import com.mira.mvc.validation.ValidationException;
 import com.mira.mvc.validation.ValidationService;
 import com.mira.utils.ClassUtils;
 import org.dozer.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,6 +22,7 @@ import java.util.function.Consumer;
 /**
  * Родительский класс для всех систем, содержит общие методы.
  */
+@Transactional
 public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObject<EntityIdClass>
     , SERVICE extends AbstractDao<ENTITY, EntityIdClass>
     , DTO extends AbstractEntityDto<DtoIdClass>
