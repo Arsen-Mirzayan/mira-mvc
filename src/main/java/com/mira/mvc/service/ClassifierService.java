@@ -9,11 +9,10 @@ import com.mira.mvc.dto.ClassifierDto;
  * Родительский класс для систем работы с классификаторами
  *
  * @param <ENTITY>  класс сущности
- * @param <SERVICE> класс сервиса для работы с сущностью
  * @param <DTO>     класс DTO
  */
-public interface ClassifierService<ENTITY extends Classifier, SERVICE extends ClassifierDao<ENTITY>, DTO extends ClassifierDto>
-    extends DictionaryService<ENTITY, SERVICE, DTO> {
+public interface ClassifierService<ENTITY extends Classifier, DTO extends ClassifierDto>
+    extends DictionaryService<ENTITY, DTO> {
   /**
    * Находит элемент классификатора по коду
    *

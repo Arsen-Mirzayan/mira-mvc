@@ -20,7 +20,7 @@ import org.dozer.Mapper;
  */
 public abstract class ClassifierServiceImpl<ENTITY extends Classifier, SERVICE extends ClassifierDao<ENTITY>, DTO extends ClassifierDto>
     extends DictionaryServiceImpl<ENTITY, SERVICE, DTO>
-    implements ClassifierService<ENTITY, SERVICE, DTO> {
+    implements ClassifierService<ENTITY, DTO> {
 
   public ClassifierServiceImpl(Mapper mapper, ValidationService validationService, SERVICE dalService) {
     super(mapper, validationService, dalService);

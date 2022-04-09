@@ -11,12 +11,12 @@ import org.dozer.Mapper;
  * Система интегрирует в себя CRUD операции
  */
 public abstract class DefaultServiceImpl<
-    ENTITY extends DefaultPersistentObject
-    , SERVICE extends DefaultDao<ENTITY>, DTO extends EntityDto
-    >
-    extends AbstractServiceImpl<ENTITY, SERVICE, DTO, Long, Long>
+  ENTITY extends DefaultPersistentObject
+  , SERVICE extends DefaultDao<ENTITY>, DTO extends EntityDto
+  >
+  extends AbstractServiceImpl<ENTITY, SERVICE, DTO, Long, Long>
 
-    implements DefaultService<ENTITY, SERVICE, DTO> {
+  implements DefaultService<ENTITY, DTO> {
 
   public DefaultServiceImpl(Mapper mapper, ValidationService validationService, SERVICE dalService) {
     super(mapper, validationService, dalService);

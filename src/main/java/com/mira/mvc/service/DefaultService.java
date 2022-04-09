@@ -7,6 +7,6 @@ import com.mira.mvc.dto.EntityDto;
 /**
  * Система интегрирует в себя CRUD операции для сущностей с простым числовым ключом
  */
-public interface DefaultService<ENTITY extends DefaultPersistentObject, SERVICE extends DefaultDao<ENTITY>, DTO extends EntityDto>
-    extends AbstractService<ENTITY, SERVICE, DTO, Long, Long> {
+public interface DefaultService<ENTITY extends DefaultPersistentObject, DTO extends EntityDto>
+    extends AbstractService<ENTITY, DTO, Long, Long> {
 }

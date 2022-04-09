@@ -24,11 +24,11 @@ import java.util.function.Consumer;
  */
 @Transactional
 public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObject<EntityIdClass>
-    , SERVICE extends AbstractDao<ENTITY, EntityIdClass>
-    , DTO extends AbstractEntityDto<DtoIdClass>
-    , EntityIdClass
-    , DtoIdClass>
-    implements AbstractService<ENTITY, SERVICE, DTO, EntityIdClass, DtoIdClass> {
+  , SERVICE extends AbstractDao<ENTITY, EntityIdClass>
+  , DTO extends AbstractEntityDto<DtoIdClass>
+  , EntityIdClass
+  , DtoIdClass>
+  implements AbstractService<ENTITY, DTO, EntityIdClass, DtoIdClass> {
   protected final Set<String> ignoredProperties = new HashSet<>();
   protected final Mapper mapper;
   protected final ValidationService validationService;
@@ -75,7 +75,7 @@ public abstract class AbstractServiceImpl<ENTITY extends AbstractPersistentObjec
    *
    * @param source    исходный объект
    * @param destClass класс, к которому нужно привести объект
-   * @param <T> класс
+   * @param <T>       класс
    * @return объект указанного класса
    */
   protected <T> T convert(Object source, Class<T> destClass) {

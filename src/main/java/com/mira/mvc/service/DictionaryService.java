@@ -10,11 +10,10 @@ import java.util.List;
  * Система работы со словарями
  *
  * @param <ENTITY>  тип словаря
- * @param <SERVICE> сервис для рабоыт со словарём
  * @param <DTO>     транспортный класс
  */
-public interface DictionaryService<ENTITY extends DictionaryObject, SERVICE extends DictionaryDao<ENTITY>, DTO extends DictionaryDto>
-    extends DefaultService<ENTITY, SERVICE, DTO> {
+public interface DictionaryService<ENTITY extends DictionaryObject, DTO extends DictionaryDto>
+    extends DefaultService<ENTITY, DTO> {
   /**
    * Находит элемент справочника по имени
    *

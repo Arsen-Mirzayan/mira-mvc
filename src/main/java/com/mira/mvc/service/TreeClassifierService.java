@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * Система для работы с классификаторами
  */
-public interface TreeClassifierService<ENTITY extends TreeClassifier<ENTITY>, SERVICE extends TreeClassifierDao<ENTITY>, DTO extends TreeClassifierDto>
-    extends ClassifierService<ENTITY, SERVICE, DTO> {
+public interface TreeClassifierService<ENTITY extends TreeClassifier<ENTITY>, DTO extends TreeClassifierDto>
+    extends ClassifierService<ENTITY, DTO> {
   /**
    * Находит список дочерних элементов
    *

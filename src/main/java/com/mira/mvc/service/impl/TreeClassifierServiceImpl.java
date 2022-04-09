@@ -20,8 +20,8 @@ import java.util.List;
  * Система для работы с классификаторами
  */
 public abstract class TreeClassifierServiceImpl<ENTITY extends TreeClassifier<ENTITY>, SERVICE extends TreeClassifierDao<ENTITY>, DTO extends TreeClassifierDto>
-    extends ClassifierServiceImpl<ENTITY, SERVICE, DTO>
-    implements TreeClassifierService<ENTITY, SERVICE, DTO> {
+  extends ClassifierServiceImpl<ENTITY, SERVICE, DTO>
+  implements TreeClassifierService<ENTITY, DTO> {
 
   public TreeClassifierServiceImpl(Mapper mapper, ValidationService validationService, SERVICE dalService) {
     super(mapper, validationService, dalService);

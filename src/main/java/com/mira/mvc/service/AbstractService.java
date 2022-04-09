@@ -13,7 +13,6 @@ import java.util.List;
  */
 public interface AbstractService<
     ENTITY extends AbstractPersistentObject<EntityIdClass>
-    , SERVICE extends AbstractDao<ENTITY, EntityIdClass>
     , DTO extends AbstractEntityDto<DtoIdClass>, EntityIdClass, DtoIdClass
     > {
   Class<ENTITY> getEntityClass();
